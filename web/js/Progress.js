@@ -28,7 +28,7 @@ export class Progress {
 
         if (file) {
             this.overWorld.set_story_flags_from_progress(file.playerState.storyFlags);
-            this.overWorld.change_map(file.mapId, "down");
+            this.overWorld.change_map(file.mapName, "down", "");
 
             Object.keys(file.playerState).forEach(key => PlayerState[key] = file.playerState[key]);
         }

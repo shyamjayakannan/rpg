@@ -1,6 +1,6 @@
 use web_sys::CanvasRenderingContext2d;
 
-use crate::{helpers::{Image, Movement, Animation, Direction, Event}, emit_event, data::DATA};
+use crate::{helpers::{Image, Movement, Animation, Direction, Event}, emit_event};
 
 pub struct Npc {
     pub name: String,
@@ -10,16 +10,16 @@ pub struct Npc {
     pub dy: f64,
     pub movement: Movement,
     animation: Animation,
-    actions: &'static [(Event, Direction, u8)],
+    actions: &'static [(Event, Direction, u16)],
     action_index: usize,
     pub direction: Direction,
-    repeat_count: u8,
+    repeat_count: u16,
     current_position: [f64; 2],
     pub cutscene: Option<(Event, Direction)>,
 }
 
 impl Npc {
-    pub fn new(npc: &(&str, &str, f64, f64, &'static [(Event, Direction, u8)])) -> Self {
+    pub fn new(npc: &(&str, &str, f64, f64, &'static [(Event, Direction, u16)])) -> Self {
         Self {
             name: npc.0.to_string(),
             image: Image::new(npc.1),
@@ -27,7 +27,7 @@ impl Npc {
             dx: npc.2,
             dy: npc.3,
             movement: Movement::new(0),
-            animation: Animation::new(),
+            animation: Animation::new(Some(&npc.4[0].1)),
             direction: npc.4[0].1.clone(),
             action_index: 0,
             actions: npc.4,
@@ -63,7 +63,7 @@ impl Npc {
         }
     }
 
-    pub fn update(&mut self, walls: &mut Vec<[u8; 2]>) {
+    pub fn update(&mut self, walls: &mut Vec<[u16; 2]>) {
         let (ref event, ref direction, ref repeat) = self.actions[self.action_index];
 
         if self.movement.progress_remaining == 0 {
@@ -117,7 +117,7 @@ impl Npc {
         self.movement.progress_remaining -= 1;
     }
 
-    pub fn update_cutscene(&mut self, walls: &mut Vec<[u8; 2]>) {
+    pub fn update_cutscene(&mut self, walls: &mut Vec<[u16; 2]>) {
         let x = match &self.cutscene {
             Some(x) => x,
             None => {

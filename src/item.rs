@@ -1,9 +1,6 @@
 use web_sys::CanvasRenderingContext2d;
 
-use crate::{
-    data::DATA,
-    helpers::{Animation, Image},
-};
+use crate::helpers::{Animation, Image};
 
 pub struct Item {
     pub flag: String,
@@ -14,12 +11,12 @@ pub struct Item {
 }
 
 impl Item {
-    pub fn new(item: &([u8; 2], &str)) -> Self {
+    pub fn new(item: &([u16; 2], &str)) -> Self {
         Self {
             image: Image::new("images/characters/box.png"),
             dx: item.0[0] as f64 * 16.0,
             dy: item.0[1] as f64 * 16.0,
-            animation: Animation::new(),
+            animation: Animation::new(None),
             flag: item.1.to_string(),
         }
     }

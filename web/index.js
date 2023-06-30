@@ -7,13 +7,13 @@ import { TitleScreen } from "./js/TitleScreen";
 
 const Directions = {
     "ArrowDown": 0,
-    "keyS": 0,
+    "KeyS": 0,
     "ArrowLeft": 1,
-    "keyA": 1,
+    "KeyA": 1,
     "ArrowRight": 2,
-    "keyD": 2,
+    "KeyD": 2,
     "ArrowUp": 3,
-    "keyA": 3,
+    "KeyW": 3,
 };
 
 class OverWorldJS {

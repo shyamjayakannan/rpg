@@ -81,19 +81,19 @@ pub fn get_direction(direction: &str) -> Direction {
 }
 
 pub struct Movement {
-    pub progress_remaining: u8,
+    pub progress_remaining: u16,
     pub moveable: bool,
 }
 
 impl Movement {
-    pub fn new(starting_progress: u8) -> Self {
+    pub fn new(starting_progress: u16) -> Self {
         Self {
             progress_remaining: starting_progress,
             moveable: true,
         }
     }
 
-    pub fn can_move(&mut self, walls: &mut Vec<[u8; 2]>, dx: &f64, dy: &f64, direction: &Direction) {
+    pub fn can_move(&mut self, walls: &mut Vec<[u16; 2]>, dx: &f64, dy: &f64, direction: &Direction) {
         let elem = get_next_place(direction, dx, dy);
 
         self.moveable = match walls.contains(&elem) {
@@ -102,7 +102,7 @@ impl Movement {
                 walls.remove(
                     walls
                         .iter()
-                        .position(|pair| *pair == [*dx as u8, *dy as u8])
+                        .position(|pair| *pair == [*dx as u16, *dy as u16])
                         .unwrap_throw(),
                 );
                 walls.push(elem);
@@ -112,12 +112,12 @@ impl Movement {
     }
 }
 
-pub fn get_next_place(direction: &Direction, dx: &f64, dy: &f64) -> [u8; 2] {
+pub fn get_next_place(direction: &Direction, dx: &f64, dy: &f64) -> [u16; 2] {
     match direction {
-        Direction::Down => [*dx as u8, *dy as u8 + 16],
-        Direction::Up => [*dx as u8, *dy as u8 - 16],
-        Direction::Right => [*dx as u8 + 16, *dy as u8],
-        Direction::Left => [*dx as u8 - 16, *dy as u8],
+        Direction::Down => [*dx as u16, *dy as u16 + 16],
+        Direction::Up => [*dx as u16, *dy as u16 - 16],
+        Direction::Right => [*dx as u16 + 16, *dy as u16],
+        Direction::Left => [*dx as u16 - 16, *dy as u16],
     }
 }
 
@@ -137,22 +137,32 @@ pub struct Animation {
 }
 
 impl Animation {
-    pub const FRAMES_PER_STEP: u8 = 8;
+    pub const FRAMES_PER_STEP: u16 = 8;
 
-    pub const STEPS: [[[u8; 2]; 4]; 4] = [
+    pub const STEPS: [[[u16; 2]; 4]; 4] = [
         [[0, 0], [32, 0], [0, 0], [96, 0]],
         [[0, 32], [32, 32], [0, 32], [96, 32]],
         [[0, 64], [32, 64], [0, 64], [96, 64]],
         [[0, 96], [32, 96], [0, 96], [96, 96]],
     ];
 
-    pub const STONE_STEPS: [[u8; 2]; 2] = [[32, 0], [0, 0]];
+    pub const STONE_STEPS: [[u16; 2]; 2] = [[32, 0], [0, 0]];
 
-    pub fn new() -> Self {
+    pub fn new(direction: Option<&Direction>) -> Self {
+        let s = match direction {
+            Some(x) => match x {   
+                Direction::Down => Self::STEPS[0][0],
+                Direction::Right => Self::STEPS[1][0],
+                Direction::Up => Self::STEPS[2][0],
+                Direction::Left => Self::STEPS[3][0],
+            }
+            None => [0, 0],
+        };
+
         Self {
             count: 0,
-            sx: 0f64,
-            sy: 0f64,
+            sx: s[0] as f64,
+            sy: s[1] as f64,
         }
     }
 

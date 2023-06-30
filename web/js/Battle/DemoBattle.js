@@ -6,8 +6,9 @@ import { PlayerState } from "../State/PlayerState";
 import { OverworldEvent } from "../OverWorldEvent";
 
 export class DemoBattle {
-    constructor({ enemy, onComplete }) {
+    constructor({ enemy, onComplete, background }) {
         this.enemy = enemy;
+        this.background = background;
         this.onComplete = onComplete;
         this.combatants = {};
 
@@ -47,6 +48,10 @@ export class DemoBattle {
     createElement() {
         this.element = document.createElement("div");
         this.element.classList.add("Battle");
+
+        // background
+        this.element.style.backgroundImage = `url(${this.background})`;
+
         this.element.innerHTML = `
             <div class="Battle_hero">
                 <img src="${'images/characters/people/hero.png'}" alt="Hero" />

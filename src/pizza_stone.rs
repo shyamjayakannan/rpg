@@ -1,9 +1,6 @@
 use web_sys::CanvasRenderingContext2d;
 
-use crate::{
-    data::DATA,
-    helpers::{Animation, Image},
-};
+use crate::helpers::{Animation, Image};
 
 pub struct PizzaStone {
     pub flag: String,
@@ -21,7 +18,7 @@ impl PizzaStone {
         ["repeat", "1"],
     ]];
 
-    pub fn new(pizza_stone: &([u8; 2], &str)) -> Self {
+    pub fn new(pizza_stone: &([u16; 2], &str)) -> Self {
         Self {
             image: Image::new("images/characters/pizza-stone.png"),
             dx: pizza_stone.0[0] as f64 * 16.0,

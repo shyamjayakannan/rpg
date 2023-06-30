@@ -1,6 +1,6 @@
 use crate::{
     helpers::{Direction, Event, Image, Movement, Animation},
-    emit_event,
+    emit_event, console_log, log
 };
 use web_sys::CanvasRenderingContext2d;
 
@@ -20,11 +20,11 @@ impl Hero {
         Self {
             image: Image::new(src),
             shadow: Image::new("images/characters/shadow.png"),
-            dx: x * 16f64,
-            dy: y * 16f64,
+            dx: x,
+            dy: y,
             movement: Movement::new(0),
+            animation: Animation::new(Some(&direction)),
             direction,
-            animation: Animation::new(),
             cutscene: None,
         }
     }
@@ -55,7 +55,7 @@ impl Hero {
         }
     }
 
-    pub fn update(&mut self, direction_vec: &Vec<Direction>, walls: &mut Vec<[u8; 2]>) {
+    pub fn update(&mut self, direction_vec: &Vec<Direction>, walls: &mut Vec<[u16; 2]>) {
         if self.movement.progress_remaining > 0 {
             if self.movement.moveable {
                 match self.direction {
@@ -73,6 +73,7 @@ impl Hero {
             self.movement.progress_remaining -= 1;
 
             if self.movement.progress_remaining == 0 {
+                console_log!("{} {}", self.dx / 16.0, self.dy / 16.0);
                 emit_event("HeroWalkingComplete", "hero");
             }
 
@@ -91,7 +92,7 @@ impl Hero {
         }
     }
 
-    pub fn update_cutscene(&mut self, walls: &mut Vec<[u8; 2]>) {
+    pub fn update_cutscene(&mut self, walls: &mut Vec<[u16; 2]>) {
         let x = match &self.cutscene {
             Some(x) => x,
             None => return,

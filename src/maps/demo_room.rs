@@ -3,18 +3,23 @@ use crate::helpers::{Direction, Event};
 pub struct DemoRoom;
 
 impl DemoRoom {
-    pub const HERO_POSITION: [[f64; 2]; 2] = [[7.0, 4.0], [5.0, 10.0]];
+    pub const BACKGROUND_COLOR: &'static str = "black";
+    pub const HERO_POSITION: [u16; 2] = [7, 4];
     pub const LOWER_IMAGE: &'static str = "images/maps/DemoLower.png";
     pub const UPPER_IMAGE: &'static str = "images/maps/DemoUpper.png";
-    pub const NPCS: [(&'static str, &'static str, f64, f64, &'static [(Event, Direction, u8)]); 1] = [
-        (
-            "Erio",
-            "images/characters/people/erio.png",
-            5.0 * 16.0,
-            7.0 * 16.0,
-            &[(Event::Stand, Direction::Down, 1)],
-        ),
-    ];
+    pub const NPCS: [(
+        &'static str,
+        &'static str,
+        f64,
+        f64,
+        &'static [(Event, Direction, u16)],
+    ); 1] = [(
+        "Erio",
+        "images/characters/people/erio.png",
+        5.0 * 16.0,
+        7.0 * 16.0,
+        &[(Event::Stand, Direction::Down, 1)],
+    )];
     pub const NPC_CUTSCENES: [(&'static str, &'static [(&'static [&'static str], &'static [&'static [[&'static str; 2]]])]); 1] = [
         (
             "Erio",
@@ -157,7 +162,7 @@ impl DemoRoom {
             ],
         ),
     ];
-    pub const ACTION_CUTSCENES: [([u8; 2], &'static [(&'static [&'static str], &'static [&'static [[&'static str; 2]]])]); 2] = [
+    pub const ACTION_CUTSCENES: [([u16; 2], &'static [(&'static [&'static str], &'static [&'static [[&'static str; 2]]])]); 2] = [
         (
             [7, 5],
             &[
@@ -185,7 +190,7 @@ impl DemoRoom {
                         &[
                             ["type", "stand"],
                             ["direction", "right"],
-                            ["who", "0"],
+                            ["who", "Erio"],
                             ["repeat", "1"],
                         ],
                         &[
@@ -228,7 +233,8 @@ impl DemoRoom {
                     &[
                         &[
                             ["type", "changeMap"],
-                            ["map", "DemoRoom"],
+                            ["map", "DiningRoom"],
+                            ["heroPosition", "7 4"],
                             ["direction", "down"],
                             ["repeat", "1"],
                         ],
@@ -237,75 +243,79 @@ impl DemoRoom {
             ],
         ),
     ];
-    pub const PIZZA_STONES: [([u8; 2], &'static str, &'static[&'static[[&'static str; 2]]]); 1] = [
-        (
-            [2, 7],
-            "DEMO_ROOM_PIZZA_STONE",
+    pub const PIZZA_STONES: [(
+        [u16; 2],
+        &'static str,
+        &'static [&'static [[&'static str; 2]]],
+    ); 1] = [(
+        [2, 7],
+        "DEMO_ROOM_PIZZA_STONE",
+        &[
             &[
-                &[
-                    ["type", "textMessage"],
-                    ["text", "Use this Pizza Stone to make new pizzas"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["index", "0"],
-                    ["type", "craftingMenu"],
-                    ["pizzas", "s001"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["type", "removeStoryFlag"],
-                    ["flag", "TALKED_TO_ERIO_1"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["type", "addStoryFlag"],
-                    ["flag", "TALKED_TO_ERIO_2"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["type", "addStoryFlag"],
-                    ["flag", "DEMO_ROOM_PIZZA_STONE"],
-                    ["repeat", "1"],
-                ],
-            ]
-        )
-    ];
-    pub const ITEMS: [([u8; 2], &'static str, &'static [&'static [[&'static str; 2]]]); 1] = [
-        (
-            [10, 8],
-            "DEMO_ROOM_ITEM",
+                ["type", "textMessage"],
+                ["text", "Use this Pizza Stone to make new pizzas"],
+                ["repeat", "1"],
+            ],
             &[
-                &[
-                    ["type", "textMessage"],
-                    ["text", "You found Cheese!"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["index", "0"],
-                    ["type", "addItem"],
-                    ["itemType", "item_recoverHp"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["type", "removeStoryFlag"],
-                    ["flag", "TALKED_TO_ERIO_2"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["type", "addStoryFlag"],
-                    ["flag", "TALKED_TO_ERIO_3"],
-                    ["repeat", "1"],
-                ],
-                &[
-                    ["type", "addStoryFlag"],
-                    ["flag", "DEMO_ROOM_ITEM"],
-                    ["repeat", "1"],
-                ],
-            ]
-        )
-    ];
-    pub const WALLS: [[u8; 2]; 40] = [
+                ["index", "0"],
+                ["type", "craftingMenu"],
+                ["pizzas", "s001"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["type", "removeStoryFlag"],
+                ["flag", "TALKED_TO_ERIO_1"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["type", "addStoryFlag"],
+                ["flag", "TALKED_TO_ERIO_2"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["type", "addStoryFlag"],
+                ["flag", "DEMO_ROOM_PIZZA_STONE"],
+                ["repeat", "1"],
+            ],
+        ],
+    )];
+    pub const ITEMS: [(
+        [u16; 2],
+        &'static str,
+        &'static [&'static [[&'static str; 2]]],
+    ); 1] = [(
+        [10, 8],
+        "DEMO_ROOM_ITEM",
+        &[
+            &[
+                ["type", "textMessage"],
+                ["text", "You found Cheese!"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["index", "0"],
+                ["type", "addItem"],
+                ["itemType", "item_recoverHp"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["type", "removeStoryFlag"],
+                ["flag", "TALKED_TO_ERIO_2"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["type", "addStoryFlag"],
+                ["flag", "TALKED_TO_ERIO_3"],
+                ["repeat", "1"],
+            ],
+            &[
+                ["type", "addStoryFlag"],
+                ["flag", "DEMO_ROOM_ITEM"],
+                ["repeat", "1"],
+            ],
+        ],
+    )];
+    pub const WALLS: [[u16; 2]; 39] = [
         [1, 3],
         [2, 3],
         [3, 3],
@@ -344,8 +354,6 @@ impl DemoRoom {
         [7, 3],
         // npc place
         [5, 7],
-        // hero place
-        [7, 4],
         // pizza stone place
         [2, 7],
         // item place

@@ -7,7 +7,7 @@ pub struct Camera {
     pub dy: f64,
     pub inc_dx: f64,
     pub inc_dy: f64,
-    wait: u8,
+    wait: u16,
     fixed_initial_location: [f64; 2],
     initial_location: Option<[f64; 2]>,
     final_location: Option<[f64; 2]>,
@@ -16,7 +16,7 @@ pub struct Camera {
 impl Camera {
     // factor by which camera is slower than other characters
     pub const SPEED: f64 = 16.0;
-    pub const WAIT: u8 = 64;
+    pub const WAIT: u16 = 64;
 
     pub fn new(dx: f64, dy: f64) -> Self {
         Self {

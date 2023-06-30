@@ -83,7 +83,7 @@ export class OverworldEvent {
     changeMap(resolve) {
         const sceneTransition = new SceneTransition();
         sceneTransition.init(document.querySelector(".game-container"), () => {
-            this.overWorld.change_map(this.event.map, this.event.direction);
+            this.overWorld.change_map(this.event.map, this.event.direction, this.event.heroPosition);
             resolve();
 
             sceneTransition.fadeOut();

@@ -14,10 +14,14 @@
 }
 
 body {
+    height: 100vh;
     background: black;
     padding: 0;
     margin: 0;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .game-container {
@@ -25,10 +29,14 @@ body {
     width: 352px;
     height: 198px;
     margin: 0 auto;
-    border: 1px solid white;
-    transform: scale(2) translateY(50%);
+    transform: scale(2.5);
 }
 
 .game-container canvas {
+    border: 1px solid white;
+    position: absolute;
+    top: -1px;
+    left: -1px;
     image-rendering: pixelated;
+    outline: none;
 }

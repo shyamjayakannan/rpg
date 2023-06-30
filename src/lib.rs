@@ -1,11 +1,10 @@
-mod data;
+mod camera;
 mod helpers;
 mod hero;
+mod item;
 mod map;
 mod npc;
 mod pizza_stone;
-mod camera;
-mod item;
 
 // maps
 mod maps;
@@ -22,8 +21,7 @@ pub fn set_panic_hook() {
 }
 
 use crate::{map::Map, maps::get_room};
-use helpers::{get_direction, DirectionInput, Event, Direction};
-use maps::Room;
+use helpers::{get_direction, Direction, DirectionInput, Event};
 use wasm_bindgen::prelude::*;
 use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
 
@@ -53,17 +51,15 @@ pub struct OverWorld {
     canvas: HtmlCanvasElement,
     ctx: CanvasRenderingContext2d,
     dir_input: DirectionInput,
-    story_flags: Vec<String>
+    story_flags: Vec<String>,
 }
 
 #[wasm_bindgen]
 impl OverWorld {
     pub fn new(canvas: HtmlCanvasElement) -> Self {
-        
         // for better error logs. remove before deployment
         set_panic_hook();
-
-
+        
         Self {
             dir_input: DirectionInput::new(),
             ctx: canvas
@@ -72,8 +68,14 @@ impl OverWorld {
                 .unwrap()
                 .dyn_into::<web_sys::CanvasRenderingContext2d>()
                 .unwrap(),
+            map: Map::new(
+                "DemoRoom",
+                &get_room("DemoRoom"),
+                Direction::Down,
+                [7, 4],
+                &canvas,
+            ),
             canvas,
-            map: Map::new("DemoRoom", &get_room("DemoRoom"), Direction::Down),
             story_flags: vec![String::from("START")],
         }
     }
@@ -167,14 +169,20 @@ impl OverWorld {
     }
 
     pub fn check_for_action_cutscene(&mut self) -> JsValue {
-        match self.map.check_for_action_cutscene(&self.story_flags, &get_room(&self.map.name)) {
+        match self
+            .map
+            .check_for_action_cutscene(&self.story_flags, &get_room(&self.map.name))
+        {
             Some(x) => serde_wasm_bindgen::to_value(x).unwrap(),
             None => serde_wasm_bindgen::to_value(&false).unwrap(),
         }
     }
 
     pub fn check_for_action(&self) -> JsValue {
-        match self.map.check_for_action_square(&self.story_flags, &get_room(&self.map.name)) {
+        match self
+            .map
+            .check_for_action_square(&self.story_flags, &get_room(&self.map.name))
+        {
             Some(x) => serde_wasm_bindgen::to_value(x).unwrap(),
             None => serde_wasm_bindgen::to_value(&false).unwrap(),
         }
@@ -192,19 +200,39 @@ impl OverWorld {
     }
 }
 
-
 // load progress
 #[wasm_bindgen]
 impl OverWorld {
-    pub fn change_map(&mut self, name: &str, direction: &str) {
-        self.map = Map::new(name, &get_room(name), get_direction(direction));
+    pub fn change_map(&mut self, name: &str, direction: &str, hero_position: &str) {
+        let room = get_room(name);
+
+        let hero_position = if let "" = hero_position {
+            room.hero_position()
+        } else {
+            hero_position
+                .split(" ")
+                .map(|s| s.parse().unwrap())
+                .collect::<Vec<u16>>()
+                .try_into()
+                .unwrap()
+        };
+
+        self.map = Map::new(
+            name,
+            &room,
+            get_direction(direction),
+            hero_position,
+            &self.canvas,
+        );
         self.map.pizza_stones.iter_mut().for_each(|stone| {
             if self.story_flags.contains(&stone.flag) {
                 stone.used = true;
             }
         });
-        
-        self.map.items.retain(|item| !self.story_flags.contains(&item.flag));
+
+        self.map
+            .items
+            .retain(|item| !self.story_flags.contains(&item.flag));
     }
 
     pub fn get_map_name(&self) -> String {
@@ -226,6 +254,21 @@ impl OverWorld {
     }
 
     pub fn remove_item(&mut self, index: &str) {
-        self.map.items.remove(index.parse::<usize>().unwrap());
+        let index = index.parse::<usize>().unwrap();
+        let wall_index = self
+            .map
+            .walls
+            .iter()
+            .position(|wall| {
+                *wall
+                    == [
+                        self.map.items[index].dx as u16,
+                        self.map.items[index].dy as u16,
+                    ]
+            })
+            .unwrap();
+
+        self.map.walls.remove(wall_index);
+        self.map.items.remove(index);
     }
 }
