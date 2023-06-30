@@ -7,8 +7,23 @@ mod pizza_stone;
 mod camera;
 mod item;
 
-use crate::map::Map;
+// maps
+mod maps;
+
+pub fn set_panic_hook() {
+    // When the `console_error_panic_hook` feature is enabled, we can call the
+    // `set_panic_hook` function at least once during initialization, and then
+    // we will get better error messages if our code ever panics.
+    //
+    // For more details see
+    // https://github.com/rustwasm/console_error_panic_hook#readme
+    // #[cfg(feature = "console_error_panic_hook")]
+    console_error_panic_hook::set_once();
+}
+
+use crate::{map::Map, maps::get_room};
 use helpers::{get_direction, DirectionInput, Event, Direction};
+use maps::Room;
 use wasm_bindgen::prelude::*;
 use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
 
@@ -44,6 +59,11 @@ pub struct OverWorld {
 #[wasm_bindgen]
 impl OverWorld {
     pub fn new(canvas: HtmlCanvasElement) -> Self {
+        
+        // for better error logs. remove before deployment
+        set_panic_hook();
+
+
         Self {
             dir_input: DirectionInput::new(),
             ctx: canvas
@@ -53,7 +73,7 @@ impl OverWorld {
                 .dyn_into::<web_sys::CanvasRenderingContext2d>()
                 .unwrap(),
             canvas,
-            map: Map::new(0, Direction::Down),
+            map: Map::new("DemoRoom", &get_room("DemoRoom"), Direction::Down),
             story_flags: vec![String::from("START")],
         }
     }
@@ -147,14 +167,14 @@ impl OverWorld {
     }
 
     pub fn check_for_action_cutscene(&mut self) -> JsValue {
-        match self.map.check_for_action_cutscene(&self.story_flags) {
+        match self.map.check_for_action_cutscene(&self.story_flags, &get_room(&self.map.name)) {
             Some(x) => serde_wasm_bindgen::to_value(x).unwrap(),
             None => serde_wasm_bindgen::to_value(&false).unwrap(),
         }
     }
 
     pub fn check_for_action(&self) -> JsValue {
-        match self.map.check_for_action_square(&self.story_flags) {
+        match self.map.check_for_action_square(&self.story_flags, &get_room(&self.map.name)) {
             Some(x) => serde_wasm_bindgen::to_value(x).unwrap(),
             None => serde_wasm_bindgen::to_value(&false).unwrap(),
         }
@@ -176,20 +196,19 @@ impl OverWorld {
 // load progress
 #[wasm_bindgen]
 impl OverWorld {
-    pub fn change_map(&mut self, index: &str, direction: &str) {
-        self.map = Map::new(index.parse::<usize>().unwrap(), get_direction(direction));
-
+    pub fn change_map(&mut self, name: &str, direction: &str) {
+        self.map = Map::new(name, &get_room(name), get_direction(direction));
         self.map.pizza_stones.iter_mut().for_each(|stone| {
             if self.story_flags.contains(&stone.flag) {
                 stone.used = true;
             }
         });
-
+        
         self.map.items.retain(|item| !self.story_flags.contains(&item.flag));
     }
 
-    pub fn get_map_id(&self) -> String {
-        self.map.index.to_string()
+    pub fn get_map_name(&self) -> String {
+        self.map.name.clone()
     }
 
     pub fn get_story_flags(&self) -> JsValue {

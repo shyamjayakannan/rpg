@@ -11,18 +11,16 @@ pub struct Item {
     pub dx: f64,
     pub dy: f64,
     animation: Animation,
-    pub item_event: &'static [&'static [[&'static str; 2]]],
 }
 
 impl Item {
-    pub fn new(index: usize, id: usize) -> Self {
+    pub fn new(item: &([u8; 2], &str)) -> Self {
         Self {
-            image: Image::new("./images/characters/box.png"),
-            dx: DATA[index].9[id].0[0] as f64 * 16.0,
-            dy: DATA[index].9[id].0[1] as f64 * 16.0,
+            image: Image::new("images/characters/box.png"),
+            dx: item.0[0] as f64 * 16.0,
+            dy: item.0[1] as f64 * 16.0,
             animation: Animation::new(),
-            item_event: DATA[index].9[id].2,
-            flag: DATA[index].8[id].1.to_string(),
+            flag: item.1.to_string(),
         }
     }
 

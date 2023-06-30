@@ -12,7 +12,6 @@ pub struct PizzaStone {
     pub dy: f64,
     animation: Animation,
     pub used: bool,
-    pub craft_event: &'static [&'static [[&'static str; 2]]],
 }
 
 impl PizzaStone {
@@ -22,15 +21,14 @@ impl PizzaStone {
         ["repeat", "1"],
     ]];
 
-    pub fn new(index: usize, id: usize) -> Self {
+    pub fn new(pizza_stone: &([u8; 2], &str)) -> Self {
         Self {
-            image: Image::new("./images/characters/pizza-stone.png"),
-            dx: DATA[index].8[id].0[0] as f64 * 16.0,
-            dy: DATA[index].8[id].0[1] as f64 * 16.0,
+            image: Image::new("images/characters/pizza-stone.png"),
+            dx: pizza_stone.0[0] as f64 * 16.0,
+            dy: pizza_stone.0[1] as f64 * 16.0,
             animation: Animation { count: 0, sx: 32.0, sy: 0.0 },
             used: false,
-            craft_event: DATA[index].8[id].2,
-            flag: DATA[index].8[id].1.to_string(),
+            flag: pizza_stone.1.to_string(),
         }
     }
 

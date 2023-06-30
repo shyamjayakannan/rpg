@@ -19,7 +19,7 @@ impl Hero {
     pub fn new(src: &str, x: f64, y: f64, direction: Direction) -> Self {
         Self {
             image: Image::new(src),
-            shadow: Image::new("./images/characters/shadow.png"),
+            shadow: Image::new("images/characters/shadow.png"),
             dx: x * 16f64,
             dy: y * 16f64,
             movement: Movement::new(0),

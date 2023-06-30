@@ -3,7 +3,7 @@ use web_sys::CanvasRenderingContext2d;
 use crate::{helpers::{Image, Movement, Animation, Direction, Event}, emit_event, data::DATA};
 
 pub struct Npc {
-    id: String,
+    pub name: String,
     image: Image,
     shadow: Image,
     pub dx: f64,
@@ -19,19 +19,19 @@ pub struct Npc {
 }
 
 impl Npc {
-    pub fn new(index: usize, id: usize) -> Self {
+    pub fn new(npc: &(&str, &str, f64, f64, &'static [(Event, Direction, u8)])) -> Self {
         Self {
-            id: id.to_string(),
-            image: Image::new(DATA[index].4[id].0),
-            shadow: Image::new("./images/characters/shadow.png"),
-            dx: DATA[index].4[id].1,
-            dy: DATA[index].4[id].2,
+            name: npc.0.to_string(),
+            image: Image::new(npc.1),
+            shadow: Image::new("images/characters/shadow.png"),
+            dx: npc.2,
+            dy: npc.3,
             movement: Movement::new(0),
             animation: Animation::new(),
-            direction: DATA[index].4[id].3[0].1.clone(),
+            direction: npc.4[0].1.clone(),
             action_index: 0,
-            actions: DATA[index].4[id].3,
-            current_position: [DATA[index].4[id].1, DATA[index].4[id].2],
+            actions: npc.4,
+            current_position: [npc.2, npc.3],
             repeat_count: 0,
             cutscene: None,
         }
@@ -156,7 +156,7 @@ impl Npc {
         self.movement.progress_remaining -= 1;
 
         if self.movement.progress_remaining == 0 {
-            emit_event("Complete", &self.id);
+            emit_event("Complete", &self.name);
         }
     }
 }
