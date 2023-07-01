@@ -27,7 +27,7 @@ impl StreetNorth {
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 1] = [
+    ); 2] = [
         (
             [7, 16],
             &[(
@@ -37,6 +37,19 @@ impl StreetNorth {
                     ["map", "Street"],
                     ["heroPosition", "25 6"],
                     ["direction", "down"],
+                    ["repeat", "1"],
+                ]],
+            )],
+        ),
+        (
+            [7, 5],
+            &[(
+                &[],
+                &[&[
+                    ["type", "changeMap"],
+                    ["map", "GreenKitchen"],
+                    ["heroPosition", "5 10"],
+                    ["direction", "up"],
                     ["repeat", "1"],
                 ]],
             )],

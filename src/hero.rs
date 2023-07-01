@@ -1,6 +1,6 @@
 use crate::{
     helpers::{Direction, Event, Image, Movement, Animation},
-    emit_event, console_log, log
+    emit_event
 };
 use web_sys::CanvasRenderingContext2d;
 
@@ -73,7 +73,6 @@ impl Hero {
             self.movement.progress_remaining -= 1;
 
             if self.movement.progress_remaining == 0 {
-                console_log!("{} {}", self.dx / 16.0, self.dy / 16.0);
                 emit_event("HeroWalkingComplete", "hero");
             }
 

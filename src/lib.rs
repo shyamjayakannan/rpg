@@ -59,7 +59,7 @@ impl OverWorld {
     pub fn new(canvas: HtmlCanvasElement) -> Self {
         // for better error logs. remove before deployment
         set_panic_hook();
-        
+
         Self {
             dir_input: DirectionInput::new(),
             ctx: canvas
@@ -136,10 +136,10 @@ impl OverWorld {
     pub fn stop_cutscene(&mut self) {
         self.map.is_cutscene_playing = false;
 
-        self.map
-            .npcs
-            .iter_mut()
-            .for_each(|character| character.cutscene = None);
+        self.map.npcs.iter_mut().for_each(|character| {
+            character.cutscene = None;
+            character.movement.progress_remaining = 16;
+        });
         self.map.hero.cutscene = None;
         self.map.hero.movement.progress_remaining = 0;
     }

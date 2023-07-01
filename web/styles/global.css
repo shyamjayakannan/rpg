@@ -29,7 +29,7 @@ body {
     width: 352px;
     height: 198px;
     margin: 0 auto;
-    transform: scale(2.5);
+    transform: scale(3);
 }
 
 .game-container canvas {
@@ -38,5 +38,6 @@ body {
     top: -1px;
     left: -1px;
     image-rendering: pixelated;
+    image-rendering: crisp-edges;
     outline: none;
 }

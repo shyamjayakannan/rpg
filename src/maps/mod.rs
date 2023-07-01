@@ -41,7 +41,8 @@ impl_for_all_rooms!(
     (street, Street),
     (pizza_shop, PizzaShop),
     (kitchen, Kitchen),
-    (street_north, StreetNorth)
+    (street_north, StreetNorth),
+    (green_kitchen, GreenKitchen)
 );
 
 pub fn get_room(name: &str) -> Box<dyn Room> {
@@ -50,6 +51,7 @@ pub fn get_room(name: &str) -> Box<dyn Room> {
         "Street" => Box::new(Street),
         "StreetNorth" => Box::new(StreetNorth),
         "Kitchen" => Box::new(Kitchen),
+        "GreenKitchen" => Box::new(GreenKitchen),
         "PizzaShop" => Box::new(PizzaShop),
         _ => Box::new(DemoRoom),
     }
