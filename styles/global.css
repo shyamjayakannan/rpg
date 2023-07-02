@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Happy+Monkey&display=swap');
+
+:root {
+    --border-color: #291d4d;
+    --dialogue-backgroung: #fff3b4;
+    --menu-background: #ffe8d2;
+    --menu-font-color: #3a160d;
+    --menu-selected-background: #7fc2ff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Ribeye', cursive;
+}
+
+body {
+    height: 100vh;
+    background: black;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-container {
+    position: relative;
+    width: 352px;
+    height: 198px;
+    margin: 0 auto;
+    transform: scale(3);
+}
+
+.game-container canvas {
+    border: 1px solid white;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    outline: none;
+}
