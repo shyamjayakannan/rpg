@@ -93,7 +93,7 @@ impl DemoRoom {
                         &[
                             ["type", "textMessage"],
                             ["speaker", "Erio"],
-                            ["text", "Walk up to it, then face it and press ENTER to open it."],
+                            ["text", "Walk up to it, then face it and press ENTER to open it. Then come back and talk to me."],
                             ["repeat", "1"],
                         ],
                     ]
@@ -287,11 +287,6 @@ impl DemoRoom {
         [10, 8],
         "DEMO_ROOM_ITEM",
         &[
-            &[
-                ["type", "textMessage"],
-                ["text", "You found Cheese!"],
-                ["repeat", "1"],
-            ],
             &[
                 ["index", "0"],
                 ["type", "addItem"],

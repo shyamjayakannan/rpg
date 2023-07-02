@@ -1,6 +1,7 @@
 use crate::{
-    helpers::{Direction, Event, Image, Movement, Animation},
-    emit_event
+    console_log, emit_event,
+    helpers::{Animation, Direction, Event, Image, Movement},
+    log,
 };
 use web_sys::CanvasRenderingContext2d;
 
@@ -73,12 +74,12 @@ impl Hero {
             self.movement.progress_remaining -= 1;
 
             if self.movement.progress_remaining == 0 {
+                console_log!("{} {}", self.dx / 16.0, self.dy / 16.0);
                 emit_event("HeroWalkingComplete", "hero");
             }
 
             return;
         } else {
-
             let vec = direction_vec;
 
             if vec.len() > 0 {
@@ -92,41 +93,45 @@ impl Hero {
     }
 
     pub fn update_cutscene(&mut self, walls: &mut Vec<[u16; 2]>) {
-        let x = match &self.cutscene {
-            Some(x) => x,
-            None => return,
-        };
-
-        match x.0 {
-            Event::Walk => {
-                if self.movement.progress_remaining == 16 {
-                    self.movement.can_move(walls, &self.dx, &self.dy, &x.1);
-                }
-
-                if self.movement.moveable {
-                    match x.1 {
-                        Direction::Down => self.dy += 1.0,
-                        Direction::Up => self.dy -= 1.0,
-                        Direction::Left => self.dx -= 1.0,
-                        Direction::Right => self.dx += 1.0,
+        if let Some(x) = &self.cutscene {
+            match x.0 {
+                Event::Walk => {
+                    if self.movement.progress_remaining == 16 {
+                        self.movement.can_move(walls, &self.dx, &self.dy, &x.1);
                     }
-                };
-                
-                if self.movement.progress_remaining % Animation::FRAMES_PER_STEP == 0 {
-                    self.animation.toggle(&x.1);
+
+                    if self.movement.moveable {
+                        match x.1 {
+                            Direction::Down => self.dy += 1.0,
+                            Direction::Up => self.dy -= 1.0,
+                            Direction::Left => self.dx -= 1.0,
+                            Direction::Right => self.dx += 1.0,
+                        }
+                    };
+
+                    if self.movement.progress_remaining % Animation::FRAMES_PER_STEP == 0 {
+                        self.animation.toggle(&x.1);
+                    }
                 }
-            }
-            Event::Stand => {
-                if self.movement.progress_remaining == 16 {
-                    self.animation.selected_frame(&x.1, 0);
+                Event::Stand => {
+                    if self.movement.progress_remaining == 16 {
+                        self.animation.selected_frame(&x.1, 0);
+                    }
                 }
             }
         }
 
-        self.movement.progress_remaining -= 1;
-
+        if self.movement.progress_remaining > 0 {
+            self.movement.progress_remaining -= 1;
+        }
+        
         if self.movement.progress_remaining == 0 {
+            self.movement.progress_remaining = 16;
             emit_event("Complete", "hero");
         }
+    }
+
+    pub fn reset_animation(&mut self) {
+        self.animation.selected_frame(&self.direction, 0);
     }
 }

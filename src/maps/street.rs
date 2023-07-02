@@ -4,7 +4,7 @@ pub struct Street;
 
 impl Street {
     pub const BACKGROUND_COLOR: &'static str = "black";
-    pub const HERO_POSITION: [u16; 2] = [5, 10];
+    pub const HERO_POSITION: [u16; 2] = [5, 11];
     pub const LOWER_IMAGE: &'static str = "images/maps/StreetLower.png";
     pub const UPPER_IMAGE: &'static str = "images/maps/StreetUpper.png";
     pub const NPCS: [(
@@ -13,7 +13,13 @@ impl Street {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 0] = [];
+    ); 1] = [(
+        "Rachel",
+        "images/characters/people/npc8.png",
+        24.0 * 16.0,
+        9.0 * 16.0,
+        &[(Event::Stand, Direction::Down, 1)],
+    )];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
@@ -130,7 +136,7 @@ impl Street {
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 86] = [
+    pub const WALLS: [[u16; 2]; 87] = [
         [3, 10],
         [3, 11],
         [3, 12],
@@ -218,5 +224,7 @@ impl Street {
         [26, 11],
         [26, 10],
         [26, 9],
+        // npcs
+        [24, 9],
     ];
 }

@@ -176,6 +176,7 @@ impl Animation {
 
         self.sx = Self::STEPS[index][count][0] as f64;
         self.sy = Self::STEPS[index][count][1] as f64;
+        self.count = count;
     }
 
     pub fn toggle(&mut self, direction: &Direction) {

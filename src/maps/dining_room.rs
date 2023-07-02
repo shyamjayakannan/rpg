@@ -4,7 +4,7 @@ pub struct DiningRoom;
 
 impl DiningRoom {
     pub const BACKGROUND_COLOR: &'static str = "black";
-    pub const HERO_POSITION: [u16; 2] = [7, 3];
+    pub const HERO_POSITION: [u16; 2] = [7, 4];
     pub const LOWER_IMAGE: &'static str = "images/maps/DiningRoomLower.png";
     pub const UPPER_IMAGE: &'static str = "images/maps/DiningRoomUpper.png";
     pub const NPCS: [(
@@ -13,7 +13,24 @@ impl DiningRoom {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Junior",
+            "images/characters/people/npc5.png",
+            11.0 * 16.0,
+            8.0 * 16.0,
+            &[
+                (Event::Stand, Direction::Left, 1),
+                (Event::Walk, Direction::Right, 1),
+                (Event::Walk, Direction::Down, 3),
+                (Event::Walk, Direction::Left, 1),
+                (Event::Stand, Direction::Left, 1),
+                (Event::Walk, Direction::Right, 1),
+                (Event::Walk, Direction::Up, 3),
+                (Event::Walk, Direction::Left, 1),
+            ],
+        ),
+    ];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
@@ -65,7 +82,7 @@ impl DiningRoom {
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 55] = [
+    pub const WALLS: [[u16; 2]; 56] = [
         [0, 4],
         [0, 6],
         [0, 7],
@@ -122,5 +139,7 @@ impl DiningRoom {
         [9, 10],
         [11, 7],
         [12, 7],
+        // npcs
+        [11, 8],
     ];
 }

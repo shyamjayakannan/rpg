@@ -26,7 +26,7 @@ export class TurnCycle {
                 await new OverworldEvent({ event: this.battle.enemy.message.quit[i] }).init()
             }
 
-            this.battle.onComplete();
+            this.battle.onComplete("end");
             return;
         }
 

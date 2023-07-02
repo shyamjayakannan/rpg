@@ -156,6 +156,7 @@ impl Npc {
         self.movement.progress_remaining -= 1;
 
         if self.movement.progress_remaining == 0 {
+            self.movement.progress_remaining = 16;
             emit_event("Complete", &self.name);
         }
     }

@@ -13,7 +13,17 @@ impl PizzaShop {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Sam",
+            "images/characters/people/npc2.png",
+            4.0 * 16.0,
+            5.0 * 16.0,
+            &[
+                (Event::Stand, Direction::Down, 1),
+            ],
+        ),
+    ];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
@@ -52,7 +62,7 @@ impl PizzaShop {
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 55] = [
+    pub const WALLS: [[u16; 2]; 56] = [
         [0, 4],
         [0, 5],
         [0, 6],
@@ -109,5 +119,7 @@ impl PizzaShop {
         [4, 8],
         [4, 9],
         [4, 10],
+        // npc
+        [4, 5],
     ];
 }

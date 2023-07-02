@@ -138,10 +138,10 @@ impl OverWorld {
 
         self.map.npcs.iter_mut().for_each(|character| {
             character.cutscene = None;
-            character.movement.progress_remaining = 16;
         });
         self.map.hero.cutscene = None;
         self.map.hero.movement.progress_remaining = 0;
+        self.map.hero.reset_animation();
     }
 
     pub fn walk(&mut self, who: &str, direction: &str) {
@@ -190,6 +190,10 @@ impl OverWorld {
 
     pub fn is_cutscene_playing(&self) -> bool {
         self.map.is_cutscene_playing
+    }
+
+    pub fn is_on_square(&self) -> bool {
+        self.map.hero.dx as u16 % 16 == 0 && self.map.hero.dy as u16 % 16 == 0
     }
 
     pub fn set_camera(&mut self, value: JsValue) {

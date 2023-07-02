@@ -21,7 +21,15 @@ export const Pizzas = {
         type: Pizzatypes.spicy,
         src: "images/characters/pizzas/s002.png",
         icon: "images/icons/spicy.png",
-        actions: ["damage1"],
+        actions: ["damage1", "saucyStatus"],
+    },
+    "s003": {
+        name: "Chilli Extreme",
+        description: "woo",
+        type: Pizzatypes.spicy,
+        src: "images/characters/pizzas/s002.png",
+        icon: "images/icons/spicy.png",
+        actions: ["damage1", "saucyStatus", "clumsyStatus"],
     },
     "v001": {
         name: "Call me Kale",

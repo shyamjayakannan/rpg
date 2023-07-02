@@ -88,8 +88,8 @@ export class DemoBattle {
                 await new OverworldEvent({ event: this.enemy.message.quit[i] }).init()
             }
 
-            this.onComplete();
-            return;
+            this.onComplete("end");
+            return "quit";
         }
 
         // for replacing pizza
@@ -101,7 +101,7 @@ export class DemoBattle {
 
             await this.onNewEvent({
                 type: "textMessage", speaker: "Erio",
-                text: `yay ${submission.replacement.name}`,
+                text: `${submission.replacement.name} has entered the battle`,
             });
 
             return;
@@ -179,7 +179,7 @@ export class DemoBattle {
             type: "textMessage", speaker: "Erio",
             text: "Alright! Try to attack my pizza. press ENTER, then choose Attack from the menu that appears",
         });
-        await this.submissionEvent("player");
+        if (await this.submissionEvent("player") === "quit") return;
         await this.onNewEvent({
             type: "textMessage", speaker: "Erio",
             text: "Great first attack! Now I'll make a move.",
@@ -189,7 +189,7 @@ export class DemoBattle {
             type: "textMessage", speaker: "Erio",
             text: "Alright! Now try using the item you picked.",
         });
-        await this.submissionEvent("player");
+        if (await this.submissionEvent("player") === "quit") return;
         await this.onNewEvent({
             type: "textMessage", speaker: "Erio",
             text: "Wonderful! Note that items once used, will disappear from your inventory. So use them wisely!",
@@ -203,19 +203,24 @@ export class DemoBattle {
             type: "textMessage", speaker: "Erio",
             text: "I just swapped my pizza for another one. You will be able to do it too, once you have more pizzas.",
         });
+        await this.onNewEvent({
+            type: "textMessage", speaker: "Erio",
+            text: "Different pizzas allow different moves. This one has a 'saucy' status. Now, try to attack me.",
+        });
+        if (await this.submissionEvent("player") === "quit") return;
         await this.submissionEvent("enemy");
         await this.onNewEvent({
             type: "textMessage", speaker: "Erio",
-            text: "Different pizzas allow different moves. This pizza has a 'saucy' status. Now, try to attack me.",
+            text: "Saw that? the 'saucy' status will recover some hp after each of my turns 2 more times. Attack me twice more to see it.",
         });
-        await this.submissionEvent("player");
+        if (await this.submissionEvent("player") === "quit") return;
+        await this.submissionEvent("enemy");
+        if (await this.submissionEvent("player") === "quit") return;
         await this.submissionEvent("enemy");
         await this.onNewEvent({
             type: "textMessage", speaker: "Erio",
-            text: "Saw that? the 'saucy' status will recover some hp after every turn of mine. Attack me once more to see it.",
+            text: "Now my pizza has lost its status. You will gain such abilities as you grow in experience and use new items.",
         });
-        await this.submissionEvent("player");
-        await this.submissionEvent("enemy");
         await this.onNewEvent({
             type: "textMessage", speaker: "Erio",
             text: "Ok! Let's end the battle now. I hope you've understood how to go about it!",

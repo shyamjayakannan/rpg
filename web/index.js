@@ -48,7 +48,7 @@ class OverWorldJS {
         });
 
         new KeyPressListener("Escape", () => {
-            if (!this.overWorld.is_cutscene_playing()) {
+            if (!this.overWorld.is_cutscene_playing() && this.overWorld.is_on_square()) {
                 this.startCutscene([
                     { type: "pause", repeat: 1 }
                 ]);
@@ -95,7 +95,10 @@ class OverWorldJS {
                     overWorldJS: this,
                 });
 
-                await eventHandler.init();
+                if (await eventHandler.init() === "end") {
+                    this.overWorld.stop_cutscene();
+                    return;
+                }
             }
         }
 

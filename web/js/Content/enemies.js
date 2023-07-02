@@ -12,7 +12,7 @@ export const Enemies = {
                 pizzaId: "s002",
                 maxHp: 50,
                 level: 1,
-                status: { type: "saucy" },
+                status: { type: "saucy", expiresIn: 3 },
             },
         },
         message: {

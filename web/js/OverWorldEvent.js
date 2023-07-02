@@ -6,6 +6,7 @@ import { TextMessage } from "./TextMessage";
 import { CraftingMenu } from "./CraftingMenu";
 import { PlayerState } from "./State/PlayerState";
 import { DemoBattle } from "./Battle/DemoBattle";
+import { Actions } from "./Content/actions";
 
 export class OverworldEvent {
     constructor({ event, overWorldJS = undefined }) {
@@ -14,10 +15,15 @@ export class OverworldEvent {
         this.overWorldJS = overWorldJS;
     }
 
-    addItem(resolve) {
-        PlayerState.addItem(this.event.itemType);
+    async addItem(resolve) {
+        const { itemType, index } = this.event;
+        PlayerState.addItem(itemType);
+        
+        const action = Actions[this.event.itemType];
+        this.event = { type: "textMessage", text: `You found a ${action.name}. Power: ${action.description}.` }
+        await this.init();
 
-        this.overWorld.remove_item(this.event.index);
+        this.overWorld.remove_item(index);
         resolve();
     }
 
@@ -93,7 +99,7 @@ export class OverworldEvent {
     battle(resolve) {
         const battle = new Battle({
             enemy: Enemies[this.event.enemyId],
-            onComplete: resolve,
+            onComplete: text => resolve(text),
             background: this.event.background,
         });
         
@@ -103,7 +109,7 @@ export class OverworldEvent {
     demoBattle(resolve) {
         const battle = new DemoBattle({
             enemy: Enemies[this.event.enemyId],
-            onComplete: resolve,
+            onComplete: text => resolve(text),
             background: this.event.background,
         });
 

@@ -11,6 +11,7 @@ export const Actions = {
     saucyStatus: {
         name: "Tomato Squeeze!",
         targetType: "friendly",
+        description: "Gives user saucy status for 3 turns",
         success: [
             { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
             { type: "stateChange", status: { type: "saucy", expiresIn: 3 } },
@@ -18,6 +19,7 @@ export const Actions = {
     },
     clumsyStatus: {
         name: "Olive Oil!",
+        description: "Increases the probability of missing attacks for the target",
         success: [
             { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
             { type: "animation", animation: "glob", color: "#dafd2a" },
@@ -27,7 +29,7 @@ export const Actions = {
     },
     item_recoverStatus: {
         name: "Heating Lamp",
-        description: "Feeling fresh",
+        description: "removes user's pizza status",
         targetType: "friendly",
         success: [
             { type: "textMessage", text: "{CASTER} uses a {ACTION}!" },
@@ -37,7 +39,7 @@ export const Actions = {
     },
     item_recoverHp: {
         name: "Cheese",
-        description: "Recovers 10 hp",
+        description: "recovers 10 hp",
         targetType: "friendly",
         success: [
             { type: "textMessage", text: "{CASTER} uses a {ACTION}!" },

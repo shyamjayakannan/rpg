@@ -136,7 +136,6 @@ impl Map {
         let npc = &mut self.npcs.iter_mut().find(|npc| npc.name == name).unwrap();
 
         npc.cutscene = Some((event, direction));
-        npc.movement.progress_remaining = 16;
     }
 
     pub fn check_for_action_cutscene<'a, 'b: 'a>(
