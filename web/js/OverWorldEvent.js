@@ -7,6 +7,7 @@ import { CraftingMenu } from "./CraftingMenu";
 import { PlayerState } from "./State/PlayerState";
 import { DemoBattle } from "./Battle/DemoBattle";
 import { Actions } from "./Content/actions";
+import { ReplyMenu } from "./ReplyMenu";
 
 export class OverworldEvent {
     constructor({ event, overWorldJS = undefined }) {
@@ -30,12 +31,29 @@ export class OverworldEvent {
     craftingMenu(resolve) {
         const menu = new CraftingMenu({
             pizzas: this.event.pizzas.split(" "),
-            onComlpete: resolve,
+            onComlpete: text => resolve(text),
             overWorld: this.overWorld,
             stoneId: this.event.index,
         });
 
         menu.init(document.querySelector(".game-container"));
+    }
+
+    async replyMenu(resolve) {
+        const menu = new ReplyMenu();
+        const event = this.event;
+
+        if (await menu.init(document.querySelector(".game-container")) === "no") {
+            for (let i = 0; i < Enemies[event.enemy].message.battleDeclined.length; i++) {
+                this.event = Enemies[event.enemy].message.battleDeclined[i];
+                await this.init();
+            }
+
+            resolve("end");
+            return;
+        }
+
+        resolve();
     }
 
     stand(resolve) {
@@ -101,6 +119,7 @@ export class OverworldEvent {
             enemy: Enemies[this.event.enemyId],
             onComplete: text => resolve(text),
             background: this.event.background,
+            overWorldJS: this.overWorldJS,
         });
         
         battle.init(document.querySelector(".game-container"));
@@ -135,6 +154,16 @@ export class OverworldEvent {
         resolve();
     }
     
+    showPizzaStone(resolve) {
+        this.overWorld.make_pizza_stone_visible(this.event.index);
+        resolve();
+    }
+
+    showItem(resolve) {
+        this.overWorld.make_item_visible(this.event.index);
+        resolve();
+    }
+
     init() {
         return new Promise(resolve => {
             this[this.event.type](resolve)

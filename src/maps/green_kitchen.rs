@@ -43,11 +43,13 @@ impl GreenKitchen {
         ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],

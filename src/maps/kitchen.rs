@@ -13,14 +13,56 @@ impl Kitchen {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Tony",
+            "images/characters/people/npc5.png",
+            6.0 * 16.0,
+            6.0 * 16.0,
+            &[
+                (Event::Stand, Direction::Down, 3),
+                (Event::Walk, Direction::Up, 1),
+                (Event::Stand, Direction::Up, 3),
+                (Event::Walk, Direction::Right, 3),
+                (Event::Walk, Direction::Up, 1),
+                (Event::Stand, Direction::Up, 3),
+                (Event::Walk, Direction::Right, 1),
+                (Event::Walk, Direction::Down, 2),
+                (Event::Stand, Direction::Down, 3),
+                (Event::Walk, Direction::Right, 1),
+                (Event::Walk, Direction::Down, 3),
+                (Event::Stand, Direction::Left, 3),
+                (Event::Walk, Direction::Up, 1),
+                (Event::Walk, Direction::Left, 6),
+                (Event::Walk, Direction::Up, 2),
+                (Event::Walk, Direction::Right, 1),
+            ],
+        ),
+    ];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Tony",
+            &[
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Tony"],
+                            ["text", "Welcome to Tony Boiii's."],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+            ],
+        ),
+    ];
     pub const ACTION_CUTSCENES: [(
         [u16; 2],
         &'static [(
@@ -43,16 +85,18 @@ impl Kitchen {
         ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 36] = [
+    pub const WALLS: [[u16; 2]; 37] = [
         [1, 5],
         [1, 6],
         [1, 7],
@@ -90,5 +134,7 @@ impl Kitchen {
         [7, 7],
         [9, 7],
         [10, 7],
+        // npcs
+        [6, 6],
     ];
 }

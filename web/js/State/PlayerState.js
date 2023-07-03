@@ -22,7 +22,6 @@ class playerState {
         const newId = `p${Date.now()}`;
         this.pizzas[newId] = {
             pizzaId,
-            hp: 50,
             maxHp: 50,
             xp: 0,
             maxXp: 100,

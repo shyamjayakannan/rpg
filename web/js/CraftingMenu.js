@@ -35,7 +35,7 @@ export class CraftingMenu {
                 description: "Close Menu",
                 handler: () => {
                     this.close();
-                    this.onComlpete();
+                    this.onComlpete("end");
                 },
             }
         ];

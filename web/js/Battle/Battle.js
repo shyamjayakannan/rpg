@@ -7,11 +7,12 @@ import { PlayerState } from "../State/PlayerState";
 import { OverworldEvent } from "../OverWorldEvent";
 
 export class Battle {
-    constructor({ enemy, onComplete, background }) {
+    constructor({ enemy, onComplete, background, overWorldJS }) {
         this.enemy = enemy;
         this.onComplete = onComplete;
         this.combatants = {};
         this.background = background;
+        this.overWorldJS = overWorldJS;
 
         this.activeCombatants = {
             player: null,
@@ -98,10 +99,10 @@ export class Battle {
                         const combatant = this.combatants[id];
 
                         if (combatant) {
-                            playerStatePizza.hp = combatant.hp;
-                            playerStatePizza.xp = combatant.xp;
-                            playerStatePizza.maxXp = combatant.maxXp;
-                            playerStatePizza.level = combatant.level;
+                            if (combatant.level === 2) new OverworldEvent({ event: { type: "addStoryFlag", flag: "LEVEL_2", repeat: "1" }, overWorldJS: this.overWorldJS }).init()
+                            else if (combatant.level === 3) new OverworldEvent({ event: { type: "addStoryFlag", flag: "LEVEL_3", repeat: "1" }, overWorldJS: this.overWorldJS }).init()
+
+                            Object.keys(playerStatePizza).forEach(key => playerStatePizza[key] = combatant[key]);
                         }
                     });
 
@@ -115,6 +116,8 @@ export class Battle {
                     for (let i = 0; i < loser.message.lost.length; i++) {
                         await new OverworldEvent({ event: loser.message.lost[i] }).init()
                     }
+
+                    this.onComplete();
                 } else {
                     this.element.remove();
                     
@@ -122,9 +125,10 @@ export class Battle {
                     for (let i = 0; i < winner.message.won.length; i++) {
                         await new OverworldEvent({ event: winner.message.won[i] }).init()
                     }
+
+                    this.onComplete("end");
                 }
 
-                this.onComplete();
             },
         });
 

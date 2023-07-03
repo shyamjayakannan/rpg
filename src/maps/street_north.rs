@@ -13,14 +13,74 @@ impl StreetNorth {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 0] = [];
+    ); 1] = [(
+        "Tina",
+        "images/characters/people/npc4.png",
+        11.0 * 16.0,
+        8.0 * 16.0,
+        &[
+            (Event::Stand, Direction::Up, 3),
+            (Event::Walk, Direction::Right, 2),
+            (Event::Stand, Direction::Right, 3),
+            (Event::Walk, Direction::Down, 2),
+            (Event::Stand, Direction::Down, 3),
+            (Event::Walk, Direction::Left, 2),
+            (Event::Stand, Direction::Left, 3),
+            (Event::Walk, Direction::Up, 2),
+        ],
+    )];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Tina",
+            &[
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Would you like to battle?"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "replyMenu"],
+                            ["enemy", "Tina"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Great! Let's battle."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "battle"],
+                            ["enemyId", "Tina"],
+                            ["background", "images/maps/PizzaShopBattle.png"],
+                            ["repeat", "1"]
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Challenge Rachel if you're feeling confident. She is a veggie pizza expert."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "addStoryFlag"],
+                            ["flag", "DEFEATED_TINA"],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+            ],
+        ),
+    ];
     pub const ACTION_CUTSCENES: [(
         [u16; 2],
         &'static [(
@@ -43,33 +103,77 @@ impl StreetNorth {
         ),
         (
             [7, 5],
-            &[(
-                &[],
-                &[&[
-                    ["type", "changeMap"],
-                    ["map", "GreenKitchen"],
-                    ["heroPosition", "5 10"],
-                    ["direction", "up"],
-                    ["repeat", "1"],
-                ]],
-            )],
+            &[
+                (
+                    &["LEVEL_2"],
+                    &[&[
+                        ["type", "changeMap"],
+                        ["map", "GreenKitchen"],
+                        ["heroPosition", "5 10"],
+                        ["direction", "up"],
+                        ["repeat", "1"],
+                    ]],
+                ),
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Unknown"],
+                            ["text", "No entry for level 1 chumps."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Unknown"],
+                            ["text", "Now clear out!"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "walk"],
+                            ["direction", "down"],
+                            ["who", "hero"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "walk"],
+                            ["direction", "left"],
+                            ["who", "hero"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "stand"],
+                            ["direction", "down"],
+                            ["who", "hero"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "Whew! How rude!"],
+                            ["repeat", "1"],
+                        ],
+                    ],
+                ),
+            ],
         ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 48] = [
+    pub const WALLS: [[u16; 2]; 49] = [
         [4, 5],
         [5, 5],
         [6, 5],
-        [7, 4],
         [8, 5],
         [9, 5],
         [10, 5],
@@ -115,5 +219,8 @@ impl StreetNorth {
         [8, 10],
         [9, 10],
         [10, 10],
+        // npcs
+        [7, 4],
+        [11, 8],
     ];
 }

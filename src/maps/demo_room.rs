@@ -36,6 +36,12 @@ impl DemoRoom {
                         &[
                             ["type", "textMessage"],
                             ["speaker", "Erio"],
+                            ["text", "To talk to walking persons, block their path, facce them and then press ENTER."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Erio"],
                             ["text", "in this world, you'll meet many people who will challenge you to pizza battles."],
                             ["repeat", "1"],
                         ],
@@ -43,6 +49,11 @@ impl DemoRoom {
                             ["type", "textMessage"],
                             ["speaker", "Erio"],
                             ["text", "you will need pizzas to battle them. Let's make your first pizza. See that pizza stone over there?"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "showPizzaStone"],
+                            ["index", "0"],
                             ["repeat", "1"],
                         ],
                         &[
@@ -83,6 +94,11 @@ impl DemoRoom {
                             ["type", "textMessage"],
                             ["speaker", "Erio"],
                             ["text", "Alright! Now, do you see that box over there?"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "showItem"],
+                            ["index", "0"],
                             ["repeat", "1"],
                         ],
                         &[
@@ -244,10 +260,12 @@ impl DemoRoom {
         ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 1] = [(
+        false,
         [2, 7],
         "DEMO_ROOM_PIZZA_STONE",
         &[
@@ -280,10 +298,12 @@ impl DemoRoom {
         ],
     )];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 1] = [(
+        false,
         [10, 8],
         "DEMO_ROOM_ITEM",
         &[
@@ -310,7 +330,7 @@ impl DemoRoom {
             ],
         ],
     )];
-    pub const WALLS: [[u16; 2]; 39] = [
+    pub const WALLS: [[u16; 2]; 37] = [
         [1, 3],
         [2, 3],
         [3, 3],
@@ -349,9 +369,5 @@ impl DemoRoom {
         [7, 3],
         // npc place
         [5, 7],
-        // pizza stone place
-        [2, 7],
-        // item place
-        [10, 8],
     ];
 }

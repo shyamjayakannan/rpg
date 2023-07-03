@@ -92,6 +92,8 @@ impl Hero {
 
     pub fn update_cutscene(&mut self, walls: &mut Vec<[u16; 2]>) {
         if let Some(x) = &self.cutscene {
+            self.direction = x.1.clone();
+            
             match x.0 {
                 Event::Walk => {
                     if self.movement.progress_remaining == 16 {

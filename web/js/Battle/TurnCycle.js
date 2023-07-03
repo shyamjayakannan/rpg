@@ -91,7 +91,7 @@ export class TurnCycle {
             if (participants) {
                 await this.onNewEvent({
                     type: "textMessage",
-                    text: participants[0] === "player" ? "you won" : `${participants[0]} won`,
+                    text: participants[0] === "player" ? "you won" : `${participants[0].name} won`,
                 });
 
                 this.onWinner(participants[0], participants[1]);

@@ -52,10 +52,11 @@ export class Combatant {
     }
 
     get givesXp() {
-        return this.level * 20;
+        return this.xp_adder;
     }
 
     update(changes = {}) {
+        // console.log(changes)
         Object.keys(changes).forEach(key => this[key] = changes[key]);
 
         this.pizzaElement.setAttribute("data-active", this.isActive);
@@ -65,6 +66,7 @@ export class Combatant {
         this.xpFills.forEach(rect => rect.style.width = `${this.xpPercent}%`);
 
         this.hudElement.querySelector(".Combatant_level").innerText = this.level;
+        this.hudElement.querySelector(".Combatant_name").innerText = this.name;
 
         const statusElement = this.hudElement.querySelector(".Combatant_status");
         if (this.status) {
@@ -91,7 +93,7 @@ export class Combatant {
 
     getReplacedEvents(originalEvents) {
         if (this.status) {
-            if (this.status.type === "clumsy" && randomFromArray([true, false, false])) {
+            if (this.status.type === "clumsy" && randomFromArray([true, true, false])) {
                 return [
                     { type: "textMessage", text: `${this.name} flops over` },
                 ];

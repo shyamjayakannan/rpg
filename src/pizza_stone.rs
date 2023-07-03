@@ -9,6 +9,7 @@ pub struct PizzaStone {
     pub dy: f64,
     animation: Animation,
     pub used: bool,
+    pub visible: bool,
 }
 
 impl PizzaStone {
@@ -18,7 +19,7 @@ impl PizzaStone {
         ["repeat", "1"],
     ]];
 
-    pub fn new(pizza_stone: &([u16; 2], &str)) -> Self {
+    pub fn new(pizza_stone: &([u16; 2], &str), visible: bool) -> Self {
         Self {
             image: Image::new("images/characters/pizza-stone.png"),
             dx: pizza_stone.0[0] as f64 * 16.0,
@@ -26,10 +27,15 @@ impl PizzaStone {
             animation: Animation { count: 0, sx: 32.0, sy: 0.0 },
             used: false,
             flag: pizza_stone.1.to_string(),
+            visible,
         }
     }
 
     pub fn draw(&self, ctx: &CanvasRenderingContext2d, hero: [&f64; 2]) {
+        if !self.visible {
+            return;
+        }
+        
         if self.image.loaded() {
             ctx.draw_image_with_html_image_element_and_sw_and_sh_and_dx_and_dy_and_dw_and_dh(
                 self.image.image_ref(),

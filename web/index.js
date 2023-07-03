@@ -70,13 +70,17 @@ class OverWorldJS {
         
         document.addEventListener("HeroWalkingComplete", () => {
             setTimeout(() => {
-                let scenes = this.overWorld.check_for_action();
-
-                if (scenes && !this.overWorld.is_cutscene_playing()) this.startCutscene(scenes.map(value => Object.fromEntries(value)));
+                this.check_for_action_cutscene();
             }, 10);
 
             // settimeout to prevent clashes between different eventlisteners trying to mutate overworld as rust does not allow it.
         });
+    }
+
+    check_for_action_cutscene() {
+        let scenes = this.overWorld.check_for_action();
+
+        if (scenes && !this.overWorld.is_cutscene_playing()) this.startCutscene(scenes.map(value => Object.fromEntries(value)));
     }
 
     render() {
@@ -97,14 +101,16 @@ class OverWorldJS {
 
                 if (await eventHandler.init() === "end") {
                     this.overWorld.stop_cutscene();
+                    this.check_for_action_cutscene();
                     return;
                 }
             }
         }
 
         this.overWorld.stop_cutscene();
+        this.check_for_action_cutscene();
     }
 }
 
-let overWorldJS = new OverWorldJS();
+const overWorldJS = new OverWorldJS();
 overWorldJS.init();

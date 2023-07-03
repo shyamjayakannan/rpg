@@ -8,7 +8,7 @@ export class Hud {
     }
 
     update() {
-        this.scoreboards.forEach(s => s.update(PlayerState.pizzas[s.id]));
+        this.scoreboards.forEach(s => s.update({ ...PlayerState.pizzas[s.id], ...Pizzas[PlayerState.pizzas[s.id].pizzaId] }));
     }
 
     createElement() {

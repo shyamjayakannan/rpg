@@ -61,11 +61,11 @@ impl Map {
             npcs: npcs.iter().map(|npc| Npc::new(npc)).collect(),
             pizza_stones: pizza_stones
                 .iter()
-                .map(|pizza_stone| PizzaStone::new(&(pizza_stone.0, pizza_stone.1)))
+                .map(|pizza_stone| PizzaStone::new(&(pizza_stone.1, pizza_stone.2), pizza_stone.0))
                 .collect(),
             items: items
                 .iter()
-                .map(|item| Item::new(&(item.0, item.1)))
+                .map(|item| Item::new(&(item.1, item.2), item.0))
                 .collect(),
             hero: Hero::new(
                 "images/characters/people/hero.png",
@@ -136,6 +136,7 @@ impl Map {
         let npc = &mut self.npcs.iter_mut().find(|npc| npc.name == name).unwrap();
 
         npc.cutscene = Some((event, direction));
+        npc.movement.progress_remaining = 16;
     }
 
     pub fn check_for_action_cutscene<'a, 'b: 'a>(
@@ -181,7 +182,7 @@ impl Map {
                 }) {
                     Some(x) => match self.pizza_stones[x].used {
                         true => Some(&PizzaStone::TALK_USED),
-                        false => Some(map.pizza_stones()[x].2),
+                        false => Some(map.pizza_stones()[x].3),
                     },
                     None => {
                         match self
@@ -189,7 +190,7 @@ impl Map {
                             .iter()
                             .position(|item| next[0] == item.dx as u16 && next[1] == item.dy as u16)
                         {
-                            Some(x) => Some(map.items()[x].2),
+                            Some(x) => Some(map.items()[x].3),
                             None => None,
                         }
                     }

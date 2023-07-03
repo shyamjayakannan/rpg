@@ -7,8 +7,8 @@ pub trait Room {
     fn lower_image(&self) -> &str;
     fn walls(&self) -> &[[u16; 2]];
     fn npcs(&self) -> &[(&str, &str, f64, f64, &'static [(Event, Direction, u16)])];
-    fn pizza_stones(&self) -> &[([u16; 2], &str, &[&[[&str; 2]]])];
-    fn items(&self) -> &[([u16; 2], &str, &[&[[&str; 2]]])];
+    fn pizza_stones(&self) -> &[(bool, [u16; 2], &str, &[&[[&str; 2]]])];
+    fn items(&self) -> &[(bool, [u16; 2], &str, &[&[[&str; 2]]])];
     fn npc_cutscenes(&self) -> &[(&str, &[(&[&str], &[&[[&str; 2]]])])];
     fn action_cutscenes(&self) -> &[([u16; 2], &[(&[&str], &[&[[&str; 2]]])])];
 }
@@ -26,8 +26,8 @@ macro_rules! impl_for_all_rooms {
                 fn lower_image(&self) -> &str { Self::LOWER_IMAGE }
                 fn walls(&self) -> &[[u16; 2]] { &Self::WALLS }
                 fn npcs(&self) -> &[(&'static str, &'static str, f64, f64, &'static [(Event, Direction, u16)])] { &Self::NPCS }
-                fn pizza_stones(&self) -> &[([u16; 2], &str, &[&[[&str; 2]]])] { &Self::PIZZA_STONES }
-                fn items(&self) -> &[([u16; 2], &str, &[&[[&str; 2]]])] { &Self::ITEMS }
+                fn pizza_stones(&self) -> &[(bool, [u16; 2], &str, &[&[[&str; 2]]])] { &Self::PIZZA_STONES }
+                fn items(&self) -> &[(bool, [u16; 2], &str, &[&[[&str; 2]]])] { &Self::ITEMS }
                 fn npc_cutscenes(&self) -> &[(&str, &[(&[&str], &[&[[&str; 2]]])])] { &Self::NPC_CUTSCENES }
                 fn action_cutscenes(&self) -> &[([u16; 2], &[(&[&str], &[&[[&str; 2]]])])] { &Self::ACTION_CUTSCENES }
             }

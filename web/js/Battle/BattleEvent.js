@@ -1,4 +1,5 @@
 import { BattleAnimations } from "../Content/BattleAnimations";
+import { Pizzas } from "../Content/pizzas";
 import { TextMessage } from "../TextMessage";
 import { ReplacementMenu } from "./ReplacementMenu";
 import { SubmissionMenu } from "./SubmissionMenu";
@@ -48,14 +49,22 @@ export class BattleEvent {
         const { caster, target, damage, status, recover } = this.event;
         const who = this.event.onCaster ? caster : target;
 
+        let target1 = target;
         if (damage) {
+            if (target1.status) {
+                if (target1.status.type === "rebound") {
+                    target1 = caster;
+                    this.event = { type: "textMessage", text: "Attack rebounds!" };
+                    await this.init();
+                }
+            }
             // deccrease hp
-            target.update({
-                hp: target.hp - damage,
+            target1.update({
+                hp: target1.hp - damage,
             });
 
             // start blinking
-            target.pizzaElement.classList.add("battle-damage-blink");
+            target1.pizzaElement.classList.add("battle-damage-blink");
         }
 
         if (recover) {
@@ -81,7 +90,7 @@ export class BattleEvent {
         this.battle.enemyTeam.update();
 
         // stop blinking
-        target.pizzaElement.classList.remove("battle-damage-blink");
+        target1.pizzaElement.classList.remove("battle-damage-blink");
 
         resolve();
     }
@@ -97,19 +106,28 @@ export class BattleEvent {
 
     giveXp(resolve) {
         let amount = this.event.xp;
-        const {combatant} = this.event;
+        const { combatant } = this.event;
 
-        (function step() {
+        const step = async () => {
             if (amount > 0) {
                 amount -= 1;
                 combatant.xp += 1;
 
                 // check for level 
-                if (combatant.xp === combatant.maxXp) {
+                if (combatant.xp === combatant.maxXp && combatant.level !== 3) {
                     combatant.xp = 0;
                     combatant.maxXp = 100;
                     combatant.level += 1;
-                } 
+
+                    const pizzaId = combatant.pizzaId;
+                    combatant.pizzaId = `${combatant.pizzaId.slice(0, -1)}${parseInt(pizzaId.slice(-1)) + 1}`;
+
+                    combatant.update({ ...Pizzas[combatant.pizzaId] });
+                    combatant.init(this.battle.element);
+
+                    this.event = { type: "textMessage", text: `${Pizzas[pizzaId].name} upgraded to ${combatant.name}` };
+                    await this.init();
+                }
 
                 combatant.update();
                 requestAnimationFrame(step);
@@ -117,7 +135,9 @@ export class BattleEvent {
             }
 
             resolve();
-        })();
+        };
+
+        step();
     }
 
     async replace(resolve) {
@@ -127,13 +147,13 @@ export class BattleEvent {
         const prev = this.battle.activeCombatants[replacement.team];
         this.battle.activeCombatants[replacement.team] = null;
         this.battle.combatants[prev].update();
-        
+
         await new Promise(resolve => setTimeout(resolve, 400));
-        
+
         // put new
         this.battle.activeCombatants[replacement.team] = replacement.id;
         replacement.update();
-        
+
         await new Promise(resolve => setTimeout(resolve, 400));
 
         // update team elements

@@ -112,7 +112,11 @@ export class SubmissionMenu {
 
     decide() {
         if (this.swap) this.menuSubmitReplacement(this.replacements[0]);
-        else this.menuSubmit(Actions[this.caster.actions[0]]);
+        else if (this.enemy.status !== null && this.caster.actions.includes("removeStatus")) this.menuSubmit(Actions.removeStatus);
+        else {
+            const actions = this.caster.actions.filter(a => a !== "removeStatus");
+            this.menuSubmit(Actions[actions[Math.floor(Math.random() * actions.length)]]);
+        }
     }
 
     showMenu(container) {

@@ -15,8 +15,8 @@ impl DiningRoom {
         &'static [(Event, Direction, u16)],
     ); 1] = [
         (
-            "Junior",
-            "images/characters/people/npc5.png",
+            "Sam",
+            "images/characters/people/npc2.png",
             11.0 * 16.0,
             8.0 * 16.0,
             &[
@@ -37,7 +37,96 @@ impl DiningRoom {
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Sam",
+            &[
+                (
+                    &["SAM_2"],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Sam"],
+                            ["text", "You thrashed me two times. I don't want to battle you anymore."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Sam"],
+                            ["text", "Try challenging Tina. She speciallizes in spicy pizzas."],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+                (
+                    &["SAM_1"],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Sam"],
+                            ["text", "You beat me once. Want to try your luck again?"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "replyMenu"],
+                            ["enemy", "Sam"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Sam"],
+                            ["text", "I am going to crush you."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "battle"],
+                            ["enemyId", "Sam"],
+                            ["background", "images/maps/DiningRoomBattle.png"],
+                            ["repeat", "1"]
+                        ],
+                        &[
+                            ["type", "addStoryFlag"],
+                            ["flag", "SAM_2"],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Sam"],
+                            ["text", "I am just starting out in the world of PIZZA LEGENDS! Want to battle?"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "replyMenu"],
+                            ["enemy", "Sam"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Sam"],
+                            ["text", "I am going to crush you."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "battle"],
+                            ["enemyId", "Sam"],
+                            ["background", "images/maps/DiningRoomBattle.png"],
+                            ["repeat", "1"]
+                        ],
+                        &[
+                            ["type", "addStoryFlag"],
+                            ["flag", "SAM_1"],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+            ],
+        ),
+    ];
     pub const ACTION_CUTSCENES: [(
         [u16; 2],
         &'static [(
@@ -73,11 +162,13 @@ impl DiningRoom {
         ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],

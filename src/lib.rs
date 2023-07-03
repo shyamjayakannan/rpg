@@ -202,6 +202,20 @@ impl OverWorld {
 
         self.map.camera.set_motion(location.try_into().unwrap());
     }
+
+    pub fn make_pizza_stone_visible(&mut self, index: &str) {
+        let pizza_stone = self.map.pizza_stones.get_mut(index.parse::<usize>().unwrap()).unwrap();
+        pizza_stone.visible = true;
+
+        self.map.walls.push([pizza_stone.dx as u16, pizza_stone.dy as u16]);
+    }
+
+    pub fn make_item_visible(&mut self, index: &str) {
+        let item = self.map.items.get_mut(index.parse::<usize>().unwrap()).unwrap();
+        item.visible = true;
+
+        self.map.walls.push([item.dx as u16, item.dy as u16]);
+    }
 }
 
 // load progress

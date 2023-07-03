@@ -13,31 +13,56 @@ impl PizzaShop {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 1] = [
-        (
-            "Sam",
-            "images/characters/people/npc2.png",
-            4.0 * 16.0,
-            5.0 * 16.0,
-            &[
-                (Event::Stand, Direction::Down, 1),
-            ],
-        ),
-    ];
+    ); 1] = [(
+        "Pamela",
+        "images/characters/people/npc1.png",
+        10.0 * 16.0,
+        4.0 * 16.0,
+        &[
+            (Event::Stand, Direction::Left, 3),
+            (Event::Walk, Direction::Down, 3),
+            (Event::Walk, Direction::Left, 1),
+            (Event::Walk, Direction::Down, 2),
+            (Event::Stand, Direction::Left, 3),
+            (Event::Walk, Direction::Down, 1),
+            (Event::Walk, Direction::Left, 4),
+            (Event::Stand, Direction::Left, 3),
+            (Event::Walk, Direction::Up, 3),
+            (Event::Walk, Direction::Right, 5),
+            (Event::Walk, Direction::Up, 3),
+        ],
+    )];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 0] = [];
+    ); 1] = [
+        (
+            "Pamela",
+            &[
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Pamela"],
+                            ["text", "You can buy pizza accessories here."],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+            ],
+        ),
+    ];
     pub const ACTION_CUTSCENES: [(
         [u16; 2],
         &'static [(
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 1] = [
+    ); 2] = [
         (
             [5, 12],
             &[(
@@ -51,13 +76,35 @@ impl PizzaShop {
                 ]],
             )],
         ),
+        (
+            [6, 6],
+            &[(
+                &[],
+                &[
+                    &[
+                        ["type", "textMessage"],
+                        ["speaker", "Pamela"],
+                        ["text", "Oi! You aren't allowed in there."],
+                        ["repeat", "1"],
+                    ],
+                    &[
+                        ["type", "walk"],
+                        ["direction", "down"],
+                        ["who", "hero"],
+                        ["repeat", "1"],
+                    ],
+                ],
+            )],
+        ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
@@ -120,6 +167,6 @@ impl PizzaShop {
         [4, 9],
         [4, 10],
         // npc
-        [4, 5],
+        [10, 4],
     ];
 }

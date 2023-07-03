@@ -71,11 +71,11 @@ impl Npc {
 
             if *event == Event::Stand || (*event == Event::Walk && self.current_position != [self.dx, self.dy]) {
                 self.repeat_count += 1;
+                self.current_position = [self.dx, self.dy];
 
                 if *repeat == self.repeat_count {
                     self.repeat_count = 0;
                     self.action_index += 1;
-                    self.current_position = [self.dx, self.dy];
                 }
             }
 

@@ -13,20 +13,116 @@ impl Street {
         f64,
         f64,
         &'static [(Event, Direction, u16)],
-    ); 1] = [(
-        "Rachel",
-        "images/characters/people/npc8.png",
-        24.0 * 16.0,
-        9.0 * 16.0,
-        &[(Event::Stand, Direction::Down, 1)],
-    )];
+    ); 2] = [
+        (
+            "Rachel",
+            "images/characters/people/npc8.png",
+            18.0 * 16.0,
+            9.0 * 16.0,
+            &[
+                (Event::Stand, Direction::Down, 3),
+                (Event::Walk, Direction::Down, 1),
+                (Event::Walk, Direction::Right, 6),
+                (Event::Walk, Direction::Down, 1),
+                (Event::Stand, Direction::Down, 3),
+                (Event::Walk, Direction::Up, 1),
+                (Event::Walk, Direction::Left, 6),
+                (Event::Walk, Direction::Up, 1),
+            ],
+        ),
+        (
+            "Ralph",
+            "images/characters/people/npc7.png",
+            33.0 * 16.0,
+            13.0 * 16.0,
+            &[
+                (Event::Stand, Direction::Right, 3),
+                (Event::Walk, Direction::Up, 3),
+                (Event::Stand, Direction::Right, 3),
+                (Event::Walk, Direction::Down, 3),
+            ],
+        ),
+    ];
     pub const NPC_CUTSCENES: [(
         &'static str,
         &'static [(
             &'static [&'static str],
             &'static [&'static [[&'static str; 2]]],
         )],
-    ); 0] = [];
+    ); 2] = [
+        (
+            "Ralph",
+            &[
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Ralph"],
+                            ["text", "I wonder what's over there in the darkness. Can't seem to go in there."],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+            ],
+        ),
+        (
+            "Rachel",
+            &[
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "I want a battle."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Rachel"],
+                            ["text", "I don't battle with random strangers. Defeat Tina first to prove that you are worth my time."],
+                            ["repeat", "1"],
+                        ],
+                    ]
+                ),
+                (
+                    &["DEFEATED_TINA"],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "I managed to defeat Tina."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Rachel"],
+                            ["text", "Good. You are worthy of my time then. Up for a battle?"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "replyMenu"],
+                            ["enemy", "Rachel"],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Good luck! You're going to need it."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "battle"],
+                            ["enemyId", "Rachel"],
+                            ["background", "images/maps/StreetBattle.png"],
+                            ["repeat", "1"]
+                        ],
+                    ]
+                ),
+            ],
+        ),
+    ];
     pub const ACTION_CUTSCENES: [(
         [u16; 2],
         &'static [(
@@ -127,16 +223,18 @@ impl Street {
         ),
     ];
     pub const PIZZA_STONES: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
     pub const ITEMS: [(
+        bool,
         [u16; 2],
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 87] = [
+    pub const WALLS: [[u16; 2]; 88] = [
         [3, 10],
         [3, 11],
         [3, 12],
@@ -225,6 +323,7 @@ impl Street {
         [26, 10],
         [26, 9],
         // npcs
-        [24, 9],
+        [18, 9],
+        [33, 13],
     ];
 }
