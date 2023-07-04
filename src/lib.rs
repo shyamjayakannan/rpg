@@ -9,17 +9,6 @@ mod pizza_stone;
 // maps
 mod maps;
 
-pub fn set_panic_hook() {
-    // When the `console_error_panic_hook` feature is enabled, we can call the
-    // `set_panic_hook` function at least once during initialization, and then
-    // we will get better error messages if our code ever panics.
-    //
-    // For more details see
-    // https://github.com/rustwasm/console_error_panic_hook#readme
-    // #[cfg(feature = "console_error_panic_hook")]
-    console_error_panic_hook::set_once();
-}
-
 use crate::{map::Map, maps::get_room};
 use helpers::{get_direction, Direction, DirectionInput, Event};
 use wasm_bindgen::prelude::*;
@@ -57,9 +46,6 @@ pub struct OverWorld {
 #[wasm_bindgen]
 impl OverWorld {
     pub fn new(canvas: HtmlCanvasElement) -> Self {
-        // for better error logs. remove before deployment
-        set_panic_hook();
-
         Self {
             dir_input: DirectionInput::new(),
             ctx: canvas
