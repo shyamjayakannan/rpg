@@ -104,6 +104,7 @@ export class Battle {
 
                             Object.keys(playerStatePizza).forEach(key => playerStatePizza[key] = combatant[key]);
                             playerStatePizza.hp = combatant.maxHp;
+                            playerStatePizza.status = null;
                         }
                     });
 
