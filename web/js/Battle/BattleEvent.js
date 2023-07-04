@@ -52,7 +52,7 @@ export class BattleEvent {
         let target1 = target;
         if (damage) {
             if (target1.status) {
-                if (target1.status.type === "rebound") {
+                if (target1.status.type === "rebounding") {
                     target1 = caster;
                     this.event = { type: "textMessage", text: "Attack rebounds!" };
                     await this.init();
