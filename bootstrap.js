@@ -82,15 +82,6 @@
 /******/ 					"__wbindgen_number_get": function(p0i32,p1i32) {
 /******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_number_get"](p0i32,p1i32);
 /******/ 					},
-/******/ 					"__wbg_new_abda76e883ba8a5f": function() {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_new_abda76e883ba8a5f"]();
-/******/ 					},
-/******/ 					"__wbg_stack_658279fe44541cf6": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_stack_658279fe44541cf6"](p0i32,p1i32);
-/******/ 					},
-/******/ 					"__wbg_error_f851667af71bcfc6": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_error_f851667af71bcfc6"](p0i32,p1i32);
-/******/ 					},
 /******/ 					"__wbg_style_3801009b2339aa94": function(p0i32) {
 /******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_style_3801009b2339aa94"](p0i32);
 /******/ 					},
@@ -294,7 +285,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/wasm_hello_bg.wasm":"126f469c62fa25985539"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/wasm_hello_bg.wasm":"b425f539dfc89f86e48c"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
