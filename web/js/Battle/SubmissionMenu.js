@@ -107,6 +107,7 @@ export class SubmissionMenu {
             action,
             instanceId,
             target: action.targetType !== "friendly" ? this.enemy : this.caster,
+            caster: this.caster,
         });
     }
 

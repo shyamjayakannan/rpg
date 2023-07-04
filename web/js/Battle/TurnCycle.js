@@ -65,14 +65,16 @@ export class TurnCycle {
             });
         }
 
-        // target done?
-        if (submission.target.hp <= 0) {
+        // done?
+        const person = submission.target.hp <= 0 ? submission.target : submission.caster.hp <= 0 ? submission.caster : null;
+
+        if (person) {
             await this.onNewEvent({
-                type: "textMessage", text: `${submission.target.name} is done`,
+                type: "textMessage", text: `${person.name} is done`,
             });
 
-            if (submission.target.team === "enemy") {
-                const xp = submission.target.givesXp;
+            if (person.team === "enemy") {
+                const xp = person.givesXp;
 
                 await this.onNewEvent({
                     type: "textMessage",
@@ -101,7 +103,7 @@ export class TurnCycle {
             // not over
             const replacement = await this.onNewEvent({
                 type: "replacementMenu",
-                team: submission.target.team,
+                team: person.team,
             });
 
             await this.onNewEvent({
