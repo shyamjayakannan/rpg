@@ -103,6 +103,7 @@ export class Battle {
                             else if (combatant.level === 3) new OverworldEvent({ event: { type: "addStoryFlag", flag: "LEVEL_3", repeat: "1" }, overWorldJS: this.overWorldJS }).init()
 
                             Object.keys(playerStatePizza).forEach(key => playerStatePizza[key] = combatant[key]);
+                            playerStatePizza.hp = combatant.maxHp;
                         }
                     });
 
