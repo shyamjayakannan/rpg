@@ -70,23 +70,6 @@ impl Street {
             "Rachel",
             &[
                 (
-                    &[],
-                    &[
-                        &[
-                            ["type", "textMessage"],
-                            ["speaker", "you"],
-                            ["text", "I want a battle."],
-                            ["repeat", "1"],
-                        ],
-                        &[
-                            ["type", "textMessage"],
-                            ["speaker", "Rachel"],
-                            ["text", "I don't battle with random strangers. Defeat Tina first to prove that you are worth my time."],
-                            ["repeat", "1"],
-                        ],
-                    ]
-                ),
-                (
                     &["DEFEATED_TINA"],
                     &[
                         &[
@@ -117,6 +100,23 @@ impl Street {
                             ["enemyId", "Rachel"],
                             ["background", "images/maps/StreetBattle.png"],
                             ["repeat", "1"]
+                        ],
+                    ]
+                ),
+                (
+                    &[],
+                    &[
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "I want a battle."],
+                            ["repeat", "1"],
+                        ],
+                        &[
+                            ["type", "textMessage"],
+                            ["speaker", "Rachel"],
+                            ["text", "I don't battle with random strangers. Defeat Tina first to prove that you are worth my time."],
+                            ["repeat", "1"],
                         ],
                     ]
                 ),
