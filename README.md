@@ -8,7 +8,7 @@ A simple rpg(Role Playing Game) where you play as a chef, making your way throug
 
 ## Where to Play
 
-You can play the game [`here`]. The game is still very much in its early stages and requires active development. See [`contributing`].
+You can play the game [`here`]. Press <code>F11</code> to enter full-screen for the best experience. The game is still very much in its early stages and requires active development. See [`contributing`].
 
 [`here`]: https://shyamjayakannan.github.io/rpg
 [`contributing`]: #contributing
