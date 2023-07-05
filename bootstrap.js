@@ -52,137 +52,140 @@
 /******/ 	function promiseResolve() { return Promise.resolve(); }
 /******/
 /******/ 	var wasmImportObjects = {
-/******/ 		"../pkg/wasm_hello_bg.wasm": function() {
+/******/ 		"../pkg/rpg_bg.wasm": function() {
 /******/ 			return {
-/******/ 				"./wasm_hello_bg.js": {
+/******/ 				"./rpg_bg.js": {
 /******/ 					"__wbindgen_object_drop_ref": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
 /******/ 					},
-/******/ 					"__wbg_emitevent_97ffd53c2ab2723c": function(p0i32,p1i32,p2i32,p3i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_emitevent_97ffd53c2ab2723c"](p0i32,p1i32,p2i32,p3i32);
+/******/ 					"__wbg_log_ec8d758c401a329c": function(p0i32,p1i32) {
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_log_ec8d758c401a329c"](p0i32,p1i32);
+/******/ 					},
+/******/ 					"__wbg_emitevent_3bc889ba220809d2": function(p0i32,p1i32,p2i32,p3i32) {
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_emitevent_3bc889ba220809d2"](p0i32,p1i32,p2i32,p3i32);
 /******/ 					},
 /******/ 					"__wbindgen_error_new": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_error_new"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_error_new"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbindgen_string_get": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_string_get"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_string_get"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbindgen_string_new": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_string_new"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_string_new"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbindgen_is_object": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_is_object"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_is_object"](p0i32);
 /******/ 					},
 /******/ 					"__wbindgen_jsval_loose_eq": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_jsval_loose_eq"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_jsval_loose_eq"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbindgen_boolean_get": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_boolean_get"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_boolean_get"](p0i32);
 /******/ 					},
 /******/ 					"__wbindgen_number_get": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_number_get"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_number_get"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbg_style_3801009b2339aa94": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_style_3801009b2339aa94"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_style_3801009b2339aa94"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_instanceof_CanvasRenderingContext2d_bc0a6635c96eca9b": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_instanceof_CanvasRenderingContext2d_bc0a6635c96eca9b"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_instanceof_CanvasRenderingContext2d_bc0a6635c96eca9b"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_drawImage_9758fa4c03ab8fc8": function(p0i32,p1i32,p2f64,p3f64) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_drawImage_9758fa4c03ab8fc8"](p0i32,p1i32,p2f64,p3f64);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_drawImage_9758fa4c03ab8fc8"](p0i32,p1i32,p2f64,p3f64);
 /******/ 					},
 /******/ 					"__wbg_drawImage_f647065c8b6c6c44": function(p0i32,p1i32,p2f64,p3f64,p4f64,p5f64,p6f64,p7f64,p8f64,p9f64) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_drawImage_f647065c8b6c6c44"](p0i32,p1i32,p2f64,p3f64,p4f64,p5f64,p6f64,p7f64,p8f64,p9f64);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_drawImage_f647065c8b6c6c44"](p0i32,p1i32,p2f64,p3f64,p4f64,p5f64,p6f64,p7f64,p8f64,p9f64);
 /******/ 					},
 /******/ 					"__wbg_clearRect_517d3360d8be8a55": function(p0i32,p1f64,p2f64,p3f64,p4f64) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_clearRect_517d3360d8be8a55"](p0i32,p1f64,p2f64,p3f64,p4f64);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_clearRect_517d3360d8be8a55"](p0i32,p1f64,p2f64,p3f64,p4f64);
 /******/ 					},
 /******/ 					"__wbg_setsrc_fac5b9516fc69301": function(p0i32,p1i32,p2i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_setsrc_fac5b9516fc69301"](p0i32,p1i32,p2i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_setsrc_fac5b9516fc69301"](p0i32,p1i32,p2i32);
 /******/ 					},
 /******/ 					"__wbg_complete_e123332e1a41aa23": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_complete_e123332e1a41aa23"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_complete_e123332e1a41aa23"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_new_6f9cb260fad32a20": function() {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_new_6f9cb260fad32a20"]();
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_new_6f9cb260fad32a20"]();
 /******/ 					},
 /******/ 					"__wbg_width_2931aaedd21f1fff": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_width_2931aaedd21f1fff"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_width_2931aaedd21f1fff"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_height_0d36fbbeb60b0661": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_height_0d36fbbeb60b0661"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_height_0d36fbbeb60b0661"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_getContext_7c5944ea807bf5d3": function(p0i32,p1i32,p2i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_getContext_7c5944ea807bf5d3"](p0i32,p1i32,p2i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_getContext_7c5944ea807bf5d3"](p0i32,p1i32,p2i32);
 /******/ 					},
 /******/ 					"__wbg_setProperty_b95ef63ab852879e": function(p0i32,p1i32,p2i32,p3i32,p4i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_setProperty_b95ef63ab852879e"](p0i32,p1i32,p2i32,p3i32,p4i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_setProperty_b95ef63ab852879e"](p0i32,p1i32,p2i32,p3i32,p4i32);
 /******/ 					},
 /******/ 					"__wbg_get_44be0491f933a435": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_get_44be0491f933a435"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_get_44be0491f933a435"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbg_length_fff51ee6522a1a18": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_length_fff51ee6522a1a18"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_length_fff51ee6522a1a18"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_new_898a68150f225f2e": function() {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_new_898a68150f225f2e"]();
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_new_898a68150f225f2e"]();
 /******/ 					},
 /******/ 					"__wbindgen_is_function": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_is_function"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_is_function"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_next_526fc47e980da008": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_next_526fc47e980da008"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_next_526fc47e980da008"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_next_ddb3312ca1c4e32a": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_next_ddb3312ca1c4e32a"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_next_ddb3312ca1c4e32a"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_done_5c1f01fb660d73b5": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_done_5c1f01fb660d73b5"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_done_5c1f01fb660d73b5"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_value_1695675138684bd5": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_value_1695675138684bd5"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_value_1695675138684bd5"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_iterator_97f0c81209c6c35a": function() {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_iterator_97f0c81209c6c35a"]();
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_iterator_97f0c81209c6c35a"]();
 /******/ 					},
 /******/ 					"__wbg_get_97b561fb56f034b5": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_get_97b561fb56f034b5"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_get_97b561fb56f034b5"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbg_call_cb65541d95d71282": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_call_cb65541d95d71282"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_call_cb65541d95d71282"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbg_set_502d29070ea18557": function(p0i32,p1i32,p2i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_set_502d29070ea18557"](p0i32,p1i32,p2i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_set_502d29070ea18557"](p0i32,p1i32,p2i32);
 /******/ 					},
 /******/ 					"__wbg_isArray_4c24b343cb13cfb1": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_isArray_4c24b343cb13cfb1"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_isArray_4c24b343cb13cfb1"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_instanceof_ArrayBuffer_39ac22089b74fddb": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_instanceof_ArrayBuffer_39ac22089b74fddb"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_instanceof_ArrayBuffer_39ac22089b74fddb"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_buffer_085ec1f694018c4f": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_buffer_085ec1f694018c4f"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_buffer_085ec1f694018c4f"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_new_8125e318e6245eed": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_new_8125e318e6245eed"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_new_8125e318e6245eed"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_set_5cf90238115182c3": function(p0i32,p1i32,p2i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_set_5cf90238115182c3"](p0i32,p1i32,p2i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_set_5cf90238115182c3"](p0i32,p1i32,p2i32);
 /******/ 					},
 /******/ 					"__wbg_length_72e2208bbc0efc61": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_length_72e2208bbc0efc61"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_length_72e2208bbc0efc61"](p0i32);
 /******/ 					},
 /******/ 					"__wbg_instanceof_Uint8Array_d8d9cb2b8e8ac1d4": function(p0i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbg_instanceof_Uint8Array_d8d9cb2b8e8ac1d4"](p0i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_instanceof_Uint8Array_d8d9cb2b8e8ac1d4"](p0i32);
 /******/ 					},
 /******/ 					"__wbindgen_debug_string": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_debug_string"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_debug_string"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbindgen_throw": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_throw"](p0i32,p1i32);
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_throw"](p0i32,p1i32);
 /******/ 					},
 /******/ 					"__wbindgen_memory": function() {
-/******/ 						return installedModules["../pkg/wasm_hello_bg.js"].exports["__wbindgen_memory"]();
+/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_memory"]();
 /******/ 					}
 /******/ 				}
 /******/ 			};
@@ -275,7 +278,7 @@
 /******/
 /******/ 		// Fetch + compile chunk loading for webassembly
 /******/
-/******/ 		var wasmModules = {"0":["../pkg/wasm_hello_bg.wasm"]}[chunkId] || [];
+/******/ 		var wasmModules = {"0":["../pkg/rpg_bg.wasm"]}[chunkId] || [];
 /******/
 /******/ 		wasmModules.forEach(function(wasmModuleId) {
 /******/ 			var installedWasmModuleData = installedWasmModules[wasmModuleId];
@@ -285,7 +288,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/wasm_hello_bg.wasm":"b425f539dfc89f86e48c"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/rpg_bg.wasm":"df339b9e37cbcf611de3"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
