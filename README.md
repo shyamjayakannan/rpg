@@ -1,6 +1,4 @@
-./web
--> npm install
--> npm run start (start local server)
-
-in main folder
--> wasm-pack build
+<div align="center">
+  <img src="./media/teloxide-logo.png" width="250"/>
+  <h1><code>teloxide</code></h1>
+</div>
