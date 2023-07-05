@@ -1,5 +1,5 @@
 <div align="center">
-  	<img src="./web/images/logo-name.png" style="image-rendering: pixelated" width="250"/>
+  	<img src="./web/images/logo-name.png" style="image-rendering: pixelated" width="400"/>
 	<h1>RPG</h1>
 
 A simple rpg(Role Playing Game) where you play as a chef, making your way through the world of PIZZA LEGENDS and battling to level up your pizzas!
