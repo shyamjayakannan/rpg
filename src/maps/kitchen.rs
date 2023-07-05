@@ -96,7 +96,8 @@ impl Kitchen {
         &'static str,
         &'static [&'static [[&'static str; 2]]],
     ); 0] = [];
-    pub const WALLS: [[u16; 2]; 37] = [
+    pub const WALLS: [[u16; 2]; 38] = [
+        [1, 4],
         [1, 5],
         [1, 6],
         [1, 7],
