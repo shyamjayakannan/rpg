@@ -29,7 +29,7 @@ export const Actions = {
     reboundStatus: {
         name: "Paprika shield!",
         targetType: "friendly",
-        description: "Gives user saucy status for 3 turns",
+        description: "Rebounds enemy's attcks for 2 turns",
         success: [
             { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
             { type: "stateChange", status: { type: "rebounding", expiresIn: 2 } },
@@ -37,7 +37,7 @@ export const Actions = {
     },
     clumsyStatus: {
         name: "Olive Oil!",
-        description: "Increases the probability of missing attacks for the target",
+        description: "Increases target's probability of missing attacks",
         success: [
             { type: "textMessage", text: "{CASTER} uses {ACTION}!" },
             { type: "animation", animation: "glob", color: "#dafd2a" },

@@ -46,25 +46,22 @@ export class BattleEvent {
     }
 
     async stateChange(resolve) {
-        const { caster, target, damage, status, recover } = this.event;
-        const who = this.event.onCaster ? caster : target;
+        const { caster, target, damage, status, recover, rebound } = this.event;
+        let who = this.event.onCaster ? caster : target;
 
-        let target1 = target;
+        if (rebound) {
+            this.event = { type: "textMessage", text: "Attack rebounds!" };
+            await this.init();
+        }
+        
         if (damage) {
-            if (target1.status) {
-                if (target1.status.type === "rebounding") {
-                    target1 = caster;
-                    this.event = { type: "textMessage", text: "Attack rebounds!" };
-                    await this.init();
-                }
-            }
             // deccrease hp
-            target1.update({
-                hp: target1.hp - damage,
+            who.update({
+                hp: who.hp - damage,
             });
 
             // start blinking
-            target1.pizzaElement.classList.add("battle-damage-blink");
+            who.pizzaElement.classList.add("battle-damage-blink");
         }
 
         if (recover) {
@@ -90,7 +87,7 @@ export class BattleEvent {
         this.battle.enemyTeam.update();
 
         // stop blinking
-        target1.pizzaElement.classList.remove("battle-damage-blink");
+        who.pizzaElement.classList.remove("battle-damage-blink");
 
         resolve();
     }

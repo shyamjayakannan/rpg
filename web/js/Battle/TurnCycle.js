@@ -62,6 +62,7 @@ export class TurnCycle {
                 action: submission.action,
                 target: submission.target,
                 caster,
+                rebound: submission.rebound,
             });
         }
 

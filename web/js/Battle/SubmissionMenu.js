@@ -103,11 +103,14 @@ export class SubmissionMenu {
         if (this.keyboardMenu) this.keyboardMenu.end();
         if (this.pause) this.pause.unbind();
 
+        const rebound = this.enemy.status && this.enemy.status.type === "rebounding" && action.targetType !== "friendly";
+
         this.onComplete({
             action,
             instanceId,
-            target: action.targetType !== "friendly" ? this.enemy : this.caster,
+            target: action.targetType === "friendly" || rebound ? this.caster : this.enemy,
             caster: this.caster,
+            rebound,
         });
     }
 
