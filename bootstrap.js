@@ -58,9 +58,6 @@
 /******/ 					"__wbindgen_object_drop_ref": function(p0i32) {
 /******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbindgen_object_drop_ref"](p0i32);
 /******/ 					},
-/******/ 					"__wbg_log_ec8d758c401a329c": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_log_ec8d758c401a329c"](p0i32,p1i32);
-/******/ 					},
 /******/ 					"__wbg_emitevent_3bc889ba220809d2": function(p0i32,p1i32,p2i32,p3i32) {
 /******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_emitevent_3bc889ba220809d2"](p0i32,p1i32,p2i32,p3i32);
 /******/ 					},
@@ -288,7 +285,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/rpg_bg.wasm":"df339b9e37cbcf611de3"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/rpg_bg.wasm":"831c1e043fd828606417"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
