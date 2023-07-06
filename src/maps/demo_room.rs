@@ -36,7 +36,7 @@ impl DemoRoom {
                         &[
                             ["type", "textMessage"],
                             ["speaker", "Erio"],
-                            ["text", "To talk to walking persons, block their path, facce them and then press ENTER."],
+                            ["text", "To talk to walking persons, block their path, face them and then press ENTER."],
                             ["repeat", "1"],
                         ],
                         &[
