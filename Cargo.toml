@@ -22,3 +22,6 @@ web-sys = {version = "0.3.4", features = [
     'KeyboardEvent',
     'CssStyleDeclaration',
 ]}
+
+[profile.release]
+lto = true
