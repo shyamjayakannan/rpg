@@ -1,4 +1,5 @@
 import { OverWorld } from "../pkg";
+import { FIREBASE } from "./FireBase";
 import { Hud } from "./js/Hud";
 import { KeyPressListener } from "./js/KeyPressListener";
 import { OverworldEvent } from "./js/OverWorldEvent";
@@ -17,19 +18,17 @@ const Directions = {
 };
 
 class OverWorldJS {
-    constructor() {
-        this.overWorld = OverWorld.new(document.querySelector(".game-canvas"));
-    }
-
     async init() {
+        this.overWorld = OverWorld.new(document.querySelector(".game-canvas"), await FIREBASE.getMap("DemoRoom"));
+        
         this.progress = new Progress(this.overWorld);
 
         // title screen
         this.titleScreen = new TitleScreen({ progress: this.progress });
         const savedFile = await this.titleScreen.init(document.querySelector(".game-container"));
 
-        // // load saved data
-        if (savedFile) this.progress.load();
+        // load saved data
+        if (savedFile) await this.progress.load();
         
         this.hud = new Hud();
         this.hud.init(document.querySelector(".game-container"));

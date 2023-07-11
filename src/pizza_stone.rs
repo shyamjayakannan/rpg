@@ -1,33 +1,41 @@
+use serde::{Serialize, Deserialize};
 use web_sys::CanvasRenderingContext2d;
 
-use crate::helpers::{Animation, Image};
+use crate::helpers::{Animation, Image, Scene};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct PizzaStoneData {
+    pub position: [f64; 2],
+    pub visible: bool,
+    pub scene: Scene,
+}
 
 pub struct PizzaStone {
-    pub flag: String,
+    pub scene: Scene,
     image: Image,
     pub dx: f64,
     pub dy: f64,
     animation: Animation,
     pub used: bool,
     pub visible: bool,
+    pub talk_used: Vec<Vec<[String; 2]>>
 }
 
 impl PizzaStone {
-    pub const TALK_USED: [&'static [[&'static str; 2]]; 1] = [&[
-        ["type", "textMessage"],
-        ["text", "Already used"],
-        ["repeat", "1"],
-    ]];
-
-    pub fn new(pizza_stone: &([u16; 2], &str), visible: bool) -> Self {
+    pub fn new(data: PizzaStoneData) -> Self {
         Self {
             image: Image::new("images/characters/pizza-stone.png"),
-            dx: pizza_stone.0[0] as f64 * 16.0,
-            dy: pizza_stone.0[1] as f64 * 16.0,
+            dx: data.position[0] * 16.0,
+            dy: data.position[1] * 16.0,
             animation: Animation { count: 0, sx: 32.0, sy: 0.0 },
             used: false,
-            flag: pizza_stone.1.to_string(),
-            visible,
+            scene: data.scene,
+            visible: data.visible,
+            talk_used: vec![vec![
+                ["type".to_owned(), "textMessage".to_owned()],
+                ["text".to_owned(), "Already used".to_owned()],
+                ["repeat".to_owned(), "1".to_owned()],
+            ]]
         }
     }
 

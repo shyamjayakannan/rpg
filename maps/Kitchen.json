@@ -1,0 +1,114 @@
+{
+	"name": "Kitchen",
+	"background_color": "black",
+	"hero_position": [5, 9],
+	"lower_image": "images/maps/KitchenLower.png",
+	"upper_image": "images/maps/KitchenUpper.png",
+	"npcs": [
+		{
+			"name": "Tony",
+			"image": "images/characters/people/npc5.png",
+			"dx": 96,
+			"dy": 96,
+			"actions": [
+				{ "event": "Stand", "direction": "Down", "repeat": 3 },
+				{ "event": "Walk", "direction": "Up", "repeat": 1 },
+				{ "event": "Stand", "direction": "Up", "repeat": 3 },
+				{ "event": "Walk", "direction": "Right", "repeat": 3 },
+				{ "event": "Walk", "direction": "Up", "repeat": 1 },
+				{ "event": "Stand", "direction": "Up", "repeat": 3 },
+				{ "event": "Walk", "direction": "Right", "repeat": 1 },
+				{ "event": "Walk", "direction": "Down", "repeat": 2 },
+				{ "event": "Stand", "direction": "Down", "repeat": 3 },
+				{ "event": "Walk", "direction": "Right", "repeat": 1 },
+				{ "event": "Walk", "direction": "Down", "repeat": 3 },
+				{ "event": "Stand", "direction": "Left", "repeat": 3 },
+				{ "event": "Walk", "direction": "Up", "repeat": 1 },
+				{ "event": "Walk", "direction": "Left", "repeat": 6 },
+				{ "event": "Walk", "direction": "Up", "repeat": 2 },
+				{ "event": "Walk", "direction": "Right", "repeat": 1 }
+			]
+		}
+	],
+	"npc_cutscenes": [
+		{
+			"name": "Tony",
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "textMessage"],
+                            ["speaker", "Tony"],
+                            ["text", "Welcome to Tony Boiii's."],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		}
+	],
+	"action_cutscenes": [
+		{
+			"position": [5, 10],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "Street"],
+                            ["heroPosition", "5 10"],
+                            ["direction", "down"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		}
+	],
+	"pizza_stones": [],
+	"items": [],
+	"walls": [
+		[1, 4],
+        [1, 5],
+        [1, 6],
+        [1, 7],
+        [0, 8],
+        [1, 9],
+        [2, 9],
+        [3, 10],
+        [4, 10],
+        [5, 11],
+        [6, 10],
+        [7, 10],
+        [8, 10],
+        [9, 9],
+        [10, 9],
+        [11, 10],
+        [12, 10],
+        [13, 9],
+        [13, 8],
+        [13, 7],
+        [13, 6],
+        [13, 5],
+        [12, 4],
+        [11, 4],
+        [10, 3],
+        [9, 3],
+        [8, 3],
+        [7, 3],
+        [6, 3],
+        [5, 3],
+        [4, 3],
+        [3, 3],
+        [2, 3],
+
+        [6, 7],
+        [7, 7],
+        [9, 7],
+        [10, 7],
+
+        [6, 6]
+	]
+}

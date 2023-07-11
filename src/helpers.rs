@@ -1,3 +1,4 @@
+use serde::{Serialize, Deserialize};
 use wasm_bindgen::UnwrapThrowExt;
 use web_sys::HtmlImageElement;
 
@@ -22,7 +23,7 @@ impl Image {
     }
 }
 
-#[derive(Clone, PartialEq, Debug)]
+#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub enum Direction {
     Up,
     Down,
@@ -30,10 +31,35 @@ pub enum Direction {
     Right,
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub enum Event {
     Walk,
     Stand,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NpcCutscenes {
+    pub name: String,
+    pub scenes: Vec<Scene>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ActionCutscenes {
+    pub position: [u16; 2],
+    pub scenes: Vec<Scene>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Action {
+    pub event: Event,
+    pub direction: Direction,
+    pub repeat: u16,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Scene {
+    pub flags: Vec<String>,
+    pub scene: Vec<Vec<[String; 2]>>,
 }
 
 pub struct DirectionInput {

@@ -1,6 +1,19 @@
+use serde::{Deserialize, Serialize};
 use web_sys::CanvasRenderingContext2d;
 
-use crate::{helpers::{Image, Movement, Animation, Direction, Event}, emit_event};
+use crate::{
+    emit_event,
+    helpers::{Action, Animation, Direction, Event, Image, Movement},
+};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct NpcData {
+    pub name: String,
+    pub image: String,
+    pub dx: f64,
+    pub dy: f64,
+    pub actions: Vec<Action>,
+}
 
 pub struct Npc {
     pub name: String,
@@ -10,7 +23,7 @@ pub struct Npc {
     pub dy: f64,
     pub movement: Movement,
     animation: Animation,
-    actions: &'static [(Event, Direction, u16)],
+    actions: Vec<Action>,
     action_index: usize,
     pub direction: Direction,
     repeat_count: u16,
@@ -19,19 +32,19 @@ pub struct Npc {
 }
 
 impl Npc {
-    pub fn new(npc: &(&str, &str, f64, f64, &'static [(Event, Direction, u16)])) -> Self {
+    pub fn new(data: NpcData) -> Self {
         Self {
-            name: npc.0.to_string(),
-            image: Image::new(npc.1),
+            name: data.name,
+            image: Image::new(&data.image),
             shadow: Image::new("images/characters/shadow.png"),
-            dx: npc.2,
-            dy: npc.3,
+            dx: data.dx,
+            dy: data.dy,
             movement: Movement::new(0),
-            animation: Animation::new(Some(&npc.4[0].1)),
-            direction: npc.4[0].1.clone(),
+            animation: Animation::new(Some(&data.actions[0].direction)),
+            direction: data.actions[0].direction.clone(),
             action_index: 0,
-            actions: npc.4,
-            current_position: [npc.2, npc.3],
+            actions: data.actions,
+            current_position: [data.dx, data.dy],
             repeat_count: 0,
             cutscene: None,
         }
@@ -64,12 +77,18 @@ impl Npc {
     }
 
     pub fn update(&mut self, walls: &mut Vec<[u16; 2]>) {
-        let (ref event, ref direction, ref repeat) = self.actions[self.action_index];
+        let Action {
+            ref event,
+            ref direction,
+            ref repeat,
+        } = self.actions[self.action_index];
 
         if self.movement.progress_remaining == 0 {
             self.movement.progress_remaining = 16;
 
-            if *event == Event::Stand || (*event == Event::Walk && self.current_position != [self.dx, self.dy]) {
+            if *event == Event::Stand
+                || (*event == Event::Walk && self.current_position != [self.dx, self.dy])
+            {
                 self.repeat_count += 1;
                 self.current_position = [self.dx, self.dy];
 
@@ -90,7 +109,8 @@ impl Npc {
             Event::Walk => {
                 if self.movement.progress_remaining == 16 {
                     self.direction = direction.clone();
-                    self.movement.can_move(walls, &self.dx, &self.dy, &self.direction);
+                    self.movement
+                        .can_move(walls, &self.dx, &self.dy, &self.direction);
                 }
 
                 if self.movement.moveable {
@@ -101,7 +121,7 @@ impl Npc {
                         Direction::Right => self.dx += 1.0,
                     }
                 };
-                
+
                 if self.movement.progress_remaining % Animation::FRAMES_PER_STEP == 0 {
                     self.animation.toggle(&self.direction);
                 }
@@ -122,10 +142,9 @@ impl Npc {
             Some(x) => x,
             None => {
                 self.animation.selected_frame(&self.direction, 0);
-                return
-            },
+                return;
+            }
         };
-
 
         match &x.0 {
             Event::Walk => {
@@ -141,7 +160,7 @@ impl Npc {
                         Direction::Right => self.dx += 1.0,
                     }
                 };
-                
+
                 if self.movement.progress_remaining % Animation::FRAMES_PER_STEP == 0 {
                     self.animation.toggle(&x.1);
                 }

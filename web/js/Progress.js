@@ -1,3 +1,4 @@
+import { FIREBASE } from "../FireBase";
 import { PlayerState } from "./State/PlayerState";
 
 export class Progress {
@@ -23,12 +24,12 @@ export class Progress {
         return file ? JSON.parse(file) : null;
     }
 
-    load() {
+    async load() {
         const file = this.getSaveFile();
 
         if (file) {
             this.overWorld.set_story_flags_from_progress(file.playerState.storyFlags);
-            this.overWorld.change_map(file.mapName, "down", "");
+            this.overWorld.change_map("down", "", await FIREBASE.getMap(file.mapName));
 
             Object.keys(file.playerState).forEach(key => PlayerState[key] = file.playerState[key]);
         }

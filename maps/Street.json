@@ -1,0 +1,326 @@
+{
+	"name": "Street",
+	"background_color": "black",
+	"hero_position": [5, 11],
+	"lower_image": "images/maps/StreetLower.png",
+	"upper_image": "images/maps/StreetUpper.png",
+	"npcs": [
+		{
+			"name": "Rachel",
+			"image": "images/characters/people/npc8.png",
+			"dx": 288,
+			"dy": 144,
+			"actions": [
+				{ "event": "Stand", "direction": "Down", "repeat": 3 },
+				{ "event": "Walk", "direction": "Down", "repeat": 1 },
+				{ "event": "Walk", "direction": "Right", "repeat": 6 },
+				{ "event": "Walk", "direction": "Down", "repeat": 1 },
+				{ "event": "Stand", "direction": "Down", "repeat": 3 },
+				{ "event": "Walk", "direction": "Up", "repeat": 1 },
+				{ "event": "Walk", "direction": "Left", "repeat": 6 },
+				{ "event": "Walk", "direction": "Up", "repeat": 1 }
+			]
+		},
+		{
+			"name": "Ralph",
+			"image": "images/characters/people/npc7.png",
+			"dx": 528,
+			"dy": 208,
+			"actions": [
+				{ "event": "Stand", "direction": "Right", "repeat": 3 },
+				{ "event": "Walk", "direction": "Up", "repeat": 3 },
+				{ "event": "Stand", "direction": "Right", "repeat": 3 },
+				{ "event": "Walk", "direction": "Down", "repeat": 3 }
+			]
+		}
+	],
+	"npc_cutscenes": [
+		{
+			"name": "Ralph",
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "textMessage"],
+                            ["speaker", "Ralph"],
+                            ["text", "I wonder what's over there in the darkness. Can't seem to go in there."],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"name": "Rachel",
+			"scenes": [
+				{
+					"flags": ["DEFEATED_TINA"],
+					"scene": [
+						[
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "I managed to defeat Tina."],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "Rachel"],
+                            ["text", "Good. You are worthy of my time then. Up for a battle?"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "replyMenu"],
+                            ["enemy", "Rachel"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Good luck! You're going to need it."],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "battle"],
+                            ["enemyId", "Rachel"],
+                            ["background", "images/maps/StreetBattle.png"],
+                            ["repeat", "1"]
+                        ]
+					]
+				},
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "I want a battle."],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "Rachel"],
+                            ["text", "I don't battle with random strangers. Defeat Tina first to prove that you are worth my time."],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		}
+	],
+	"action_cutscenes": [
+		{
+			"position": [4, 10],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "DiningRoom"],
+                            ["heroPosition", "6 11"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [4, 11],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "DiningRoom"],
+                            ["heroPosition", "6 11"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [4, 12],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "DiningRoom"],
+                            ["heroPosition", "6 11"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [4, 13],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "DiningRoom"],
+                            ["heroPosition", "6 11"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [29, 9],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "PizzaShop"],
+                            ["heroPosition", "5 11"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [5, 9],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "Kitchen"],
+                            ["heroPosition", "5 9"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [25, 5],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "StreetNorth"],
+                            ["heroPosition", "7 15"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		}
+	],
+	"pizza_stones": [],
+	"items": [],
+	"walls": [
+		[3, 10],
+        [3, 11],
+        [3, 12],
+        [3, 13],
+        [4, 14],
+        [5, 14],
+        [6, 14],
+        [7, 14],
+        [8, 14],
+        [9, 14],
+        [10, 14],
+        [11, 14],
+        [12, 14],
+        [13, 14],
+        [14, 14],
+        [15, 14],
+        [16, 14],
+        [17, 14],
+        [18, 14],
+        [19, 14],
+        [20, 14],
+        [21, 14],
+        [22, 14],
+        [23, 14],
+        [24, 14],
+        [25, 14],
+        [26, 14],
+        [27, 14],
+        [28, 14],
+        [29, 14],
+        [30, 14],
+        [31, 14],
+        [32, 14],
+        [33, 14],
+        [34, 13],
+        [34, 12],
+        [34, 11],
+        [34, 10],
+        [4, 9],
+        [5, 8],
+        [6, 9],
+        [7, 9],
+        [8, 9],
+        [9, 9],
+        [10, 9],
+        [11, 9],
+        [12, 9],
+        [13, 8],
+        [14, 8],
+        [15, 7],
+        [16, 7],
+        [17, 7],
+        [18, 7],
+        [19, 7],
+        [20, 7],
+        [21, 7],
+        [22, 7],
+        [23, 7],
+        [24, 7],
+        [24, 6],
+        [26, 6],
+        [26, 5],
+        [24, 5],
+        [26, 7],
+        [27, 7],
+        [28, 8],
+        [28, 9],
+        [29, 8],
+        [30, 9],
+        [31, 9],
+        [32, 9],
+        [33, 9],
+
+        [16, 9],
+        [16, 10],
+        [16, 11],
+        [17, 9],
+        [17, 10],
+        [17, 11],
+        [18, 11],
+        [19, 11],
+        [25, 11],
+        [25, 10],
+        [25, 9],
+        [26, 11],
+        [26, 10],
+        [26, 9],
+
+        [18, 9],
+        [33, 13]
+	]
+}

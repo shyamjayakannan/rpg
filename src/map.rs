@@ -1,14 +1,29 @@
 use crate::{
     camera::Camera,
-    helpers::{get_next_place, get_opposite_direction, Direction, Event, Image},
+    helpers::{get_next_place, get_opposite_direction, Direction, Event, Image, NpcCutscenes, ActionCutscenes},
     hero::Hero,
-    item::Item,
-    maps::Room,
-    npc::Npc,
-    pizza_stone::PizzaStone
+    item::{Item, ItemData},
+    npc::{Npc, NpcData},
+    pizza_stone::{PizzaStone, PizzaStoneData}
 };
+use serde::{Serialize, Deserialize};
 use wasm_bindgen::UnwrapThrowExt;
 use web_sys::{CanvasRenderingContext2d, HtmlCanvasElement};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct MapData {
+    pub name: String,
+    pub background_color: String,
+    pub upper_image: String,
+    pub lower_image: String,
+    pub walls: Vec<[u16; 2]>,
+    pub npcs: Vec<NpcData>,
+    pub hero_position: [u16; 2],
+    pub pizza_stones: Vec<PizzaStoneData>,
+    pub items: Vec<ItemData>,
+    pub npc_cutscenes: Vec<NpcCutscenes>,
+    pub action_cutscenes: Vec<ActionCutscenes>,
+}
 
 pub struct Map {
     pub name: String,
@@ -21,20 +36,18 @@ pub struct Map {
     pub pizza_stones: Vec<PizzaStone>,
     pub items: Vec<Item>,
     pub camera: Camera,
+    pub npc_cutscenes: Vec<NpcCutscenes>,
+    pub action_cutscenes: Vec<ActionCutscenes>,
 }
 
 impl Map {
     pub fn new(
-        name: &str,
-        map: &Box<dyn Room>,
+        data: MapData,
         hero_direction: Direction,
         hero_position: [u16; 2],
         canvas: &HtmlCanvasElement,
     ) -> Self {
-        let npcs = map.npcs();
-        let pizza_stones = map.pizza_stones();
-        let items = map.items();
-        let mut walls: Vec<[u16; 2]> = Vec::from(map.walls())
+        let mut walls: Vec<[u16; 2]> = data.walls
             .iter()
             .map(|pair| {
                 pair.iter()
@@ -50,22 +63,22 @@ impl Map {
             hero_position[1] as u16 * 16,
         ]);
 
-        canvas.style().set_property("background", map.background_color()).unwrap();
+        canvas.style().set_property("background", &data.background_color).unwrap();
 
         Self {
-            name: name.to_string(),
-            upper_image: Image::new(map.upper_image()),
-            lower_image: Image::new(map.lower_image()),
+            name: data.name,
+            upper_image: Image::new(&data.upper_image),
+            lower_image: Image::new(&data.lower_image),
             is_cutscene_playing: false,
             walls,
-            npcs: npcs.iter().map(|npc| Npc::new(npc)).collect(),
-            pizza_stones: pizza_stones
-                .iter()
-                .map(|pizza_stone| PizzaStone::new(&(pizza_stone.1, pizza_stone.2), pizza_stone.0))
+            npcs: data.npcs.into_iter().map(|npc| Npc::new(npc)).collect(),
+            pizza_stones: data.pizza_stones
+                .into_iter()
+                .map(|pizza_stone| PizzaStone::new(pizza_stone))
                 .collect(),
-            items: items
-                .iter()
-                .map(|item| Item::new(&(item.1, item.2), item.0))
+            items: data.items
+                .into_iter()
+                .map(|item| Item::new(item))
                 .collect(),
             hero: Hero::new(
                 "images/characters/people/hero.png",
@@ -74,6 +87,8 @@ impl Map {
                 hero_direction,
             ),
             camera: Camera::new(hero_position[0] as f64 * 16.0, hero_position[1] as f64 * 16.0),
+            npc_cutscenes: data.npc_cutscenes,
+            action_cutscenes: data.action_cutscenes
         }
     }
 
@@ -139,11 +154,10 @@ impl Map {
         npc.movement.progress_remaining = 16;
     }
 
-    pub fn check_for_action_cutscene<'a, 'b: 'a>(
-        &'a mut self,
+    pub fn check_for_action_cutscene(
+        &mut self,
         story_flags: &Vec<String>,
-        map: &'b Box<dyn Room>,
-    ) -> Option<&'b [&[[&str; 2]]]> {
+    ) -> Option<&Vec<Vec<[String; 2]>>> {
         let next = get_next_place(&self.hero.direction, &self.hero.dx, &self.hero.dy);
 
         match self
@@ -154,22 +168,22 @@ impl Map {
             Some(x) => {
                 x.direction = get_opposite_direction(&self.hero.direction);
 
-                match map
-                    .npc_cutscenes()
+                match self
+                    .npc_cutscenes
                     .iter()
-                    .find(|cutscene| cutscene.0 == x.name)
+                    .find(|cutscene| cutscene.name == x.name)
                 {
                     Some(y) => {
-                        match y.1.iter().find(|tuple| {
-                            for flag in tuple.0 {
-                                if !story_flags.contains(&flag.to_string()) {
+                        match y.scenes.iter().find(|scene| {
+                            for flag in &scene.flags {
+                                if !story_flags.contains(flag) {
                                     return false;
                                 }
                             }
 
                             true
                         }) {
-                            Some(x) => Some(x.1),
+                            Some(x) => Some(&x.scene),
                             None => None,
                         }
                     }
@@ -181,8 +195,8 @@ impl Map {
                     next[0] == pizza_stone.dx as u16 && next[1] == pizza_stone.dy as u16
                 }) {
                     Some(x) => match self.pizza_stones[x].used {
-                        true => Some(&PizzaStone::TALK_USED),
-                        false => Some(map.pizza_stones()[x].3),
+                        true => Some(&self.pizza_stones[x].talk_used),
+                        false => Some(&self.pizza_stones[x].scene.scene),
                     },
                     None => {
                         match self
@@ -190,7 +204,7 @@ impl Map {
                             .iter()
                             .position(|item| next[0] == item.dx as u16 && next[1] == item.dy as u16)
                         {
-                            Some(x) => Some(map.items()[x].3),
+                            Some(x) => Some(&self.items[x].scene.scene),
                             None => None,
                         }
                     }
@@ -199,26 +213,25 @@ impl Map {
         }
     }
 
-    pub fn check_for_action_square<'a, 'b: 'a>(
-        &'a self,
+    pub fn check_for_action_square(
+        &self,
         story_flags: &Vec<String>,
-        map: &'b Box<dyn Room>,
-    ) -> Option<&'b [&[[&str; 2]]]> {
-        match map.action_cutscenes().iter().find(|square| {
-            (&self.hero.dx / 16.0) as u16 == square.0[0]
-                && (&self.hero.dy / 16.0) as u16 == square.0[1]
+    ) -> Option<&Vec<Vec<[String; 2]>>> {
+        match self.action_cutscenes.iter().find(|square| {
+            (&self.hero.dx / 16.0) as u16 == square.position[0]
+                && (&self.hero.dy / 16.0) as u16 == square.position[1]
         }) {
             Some(x) => {
-                match x.1.iter().find(|tuple| {
-                    for flag in tuple.0 {
-                        if !story_flags.contains(&flag.to_string()) {
+                match x.scenes.iter().find(|scene| {
+                    for flag in &scene.flags {
+                        if !story_flags.contains(flag) {
                             return false;
                         }
                     }
 
                     true
                 }) {
-                    Some(x) => Some(x.1),
+                    Some(x) => Some(&x.scene),
                     None => None,
                 }
             }

@@ -1,0 +1,203 @@
+{
+	"name": "StreetNorth",
+	"background_color": "black",
+	"hero_position": [7, 15],
+	"lower_image": "images/maps/StreetNorthLower.png",
+	"upper_image": "images/maps/StreetNorthUpper.png",
+	"npcs": [
+		{
+			"name": "Tina",
+			"image": "images/characters/people/npc4.png",
+			"dx": 176,
+			"dy": 128,
+			"actions": [
+				{ "event": "Stand", "direction": "Up", "repeat": 3 },
+				{ "event": "Walk", "direction": "Right", "repeat": 2 },
+				{ "event": "Stand", "direction": "Right", "repeat": 3 },
+				{ "event": "Walk", "direction": "Down", "repeat": 2 },
+				{ "event": "Stand", "direction": "Down", "repeat": 3 },
+				{ "event": "Walk", "direction": "Left", "repeat": 2 },
+				{ "event": "Stand", "direction": "Left", "repeat": 3 },
+				{ "event": "Walk", "direction": "Up", "repeat": 2 }
+			]
+		}
+	],
+	"npc_cutscenes": [
+		{
+			"name": "Tina",
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Would you like to battle?"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "replyMenu"],
+                            ["enemy", "Tina"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Great! Let's battle."],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "battle"],
+                            ["enemyId", "Tina"],
+                            ["background", "images/maps/PizzaShopBattle.png"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "Tina"],
+                            ["text", "Challenge Rachel if you're feeling confident. She is a veggie pizza expert."],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "addStoryFlag"],
+                            ["flag", "DEFEATED_TINA"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		}
+	],
+	"action_cutscenes": [
+		{
+			"position": [7, 16],
+			"scenes": [
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "Street"],
+                            ["heroPosition", "25 6"],
+                            ["direction", "down"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		},
+		{
+			"position": [7, 5],
+			"scenes": [
+				{
+					"flags": ["LEVEL_2"],
+					"scene": [
+						[
+                            ["type", "changeMap"],
+                            ["map", "GreenKitchen"],
+                            ["heroPosition", "5 10"],
+                            ["direction", "up"],
+                            ["repeat", "1"]
+                        ]
+					]
+				},
+				{
+					"flags": [],
+					"scene": [
+						[
+                            ["type", "textMessage"],
+                            ["speaker", "Unknown"],
+                            ["text", "No entry for level 1 chumps."],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "Unknown"],
+                            ["text", "Now clear out!"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "walk"],
+                            ["direction", "down"],
+                            ["who", "hero"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "walk"],
+                            ["direction", "left"],
+                            ["who", "hero"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "stand"],
+                            ["direction", "down"],
+                            ["who", "hero"],
+                            ["repeat", "1"]
+                        ],
+                        [
+                            ["type", "textMessage"],
+                            ["speaker", "you"],
+                            ["text", "Whew! How rude!"],
+                            ["repeat", "1"]
+                        ]
+					]
+				}
+			]
+		}
+	],
+	"pizza_stones": [],
+	"items": [],
+	"walls": [
+		[4, 5],
+        [5, 5],
+        [6, 5],
+        [8, 5],
+        [9, 5],
+        [10, 5],
+        [3, 6],
+        [3, 7],
+        [2, 7],
+        [1, 8],
+        [1, 9],
+        [1, 10],
+        [1, 11],
+        [1, 12],
+        [1, 13],
+        [1, 14],
+        [2, 15],
+        [3, 15],
+        [4, 15],
+        [5, 15],
+        [6, 15],
+        [7, 18],
+        [8, 15],
+        [9, 15],
+        [10, 15],
+        [11, 15],
+        [12, 15],
+        [13, 15],
+        [14, 14],
+        [14, 13],
+        [14, 12],
+        [14, 11],
+        [14, 10],
+        [14, 9],
+        [14, 8],
+        [14, 7],
+        [13, 6],
+        [12, 6],
+        [11, 6],
+
+        [7, 8],
+        [7, 9],
+        [7, 10],
+        [8, 8],
+        [8, 9],
+        [8, 10],
+        [9, 10],
+        [10, 10],
+
+        [7, 4],
+        [11, 8]
+	]
+}

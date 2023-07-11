@@ -8,6 +8,7 @@ import { PlayerState } from "./State/PlayerState";
 import { DemoBattle } from "./Battle/DemoBattle";
 import { Actions } from "./Content/actions";
 import { ReplyMenu } from "./ReplyMenu";
+import { FIREBASE } from "../FireBase";
 
 export class OverworldEvent {
     constructor({ event, overWorldJS = undefined }) {
@@ -106,8 +107,8 @@ export class OverworldEvent {
 
     changeMap(resolve) {
         const sceneTransition = new SceneTransition();
-        sceneTransition.init(document.querySelector(".game-container"), () => {
-            this.overWorld.change_map(this.event.map, this.event.direction, this.event.heroPosition);
+        sceneTransition.init(document.querySelector(".game-container"), async () => {
+            this.overWorld.change_map(this.event.direction, this.event.heroPosition, await FIREBASE.getMap(this.event.map));
             resolve();
 
             sceneTransition.fadeOut();

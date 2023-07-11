@@ -1,9 +1,17 @@
+use serde::{Serialize, Deserialize};
 use web_sys::CanvasRenderingContext2d;
 
-use crate::helpers::{Animation, Image};
+use crate::helpers::{Animation, Image, Scene};
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct ItemData {
+    pub position: [f64; 2],
+    pub visible: bool,
+    pub scene: Scene,
+}
 
 pub struct Item {
-    pub flag: String,
+    pub scene: Scene,
     image: Image,
     pub dx: f64,
     pub dy: f64,
@@ -12,14 +20,14 @@ pub struct Item {
 }
 
 impl Item {
-    pub fn new(item: &([u16; 2], &str), visible: bool) -> Self {
+    pub fn new(data: ItemData) -> Self {
         Self {
             image: Image::new("images/characters/box.png"),
-            dx: item.0[0] as f64 * 16.0,
-            dy: item.0[1] as f64 * 16.0,
+            dx: data.position[0] * 16.0,
+            dy: data.position[1] * 16.0,
             animation: Animation::new(None),
-            flag: item.1.to_string(),
-            visible,
+            scene: data.scene,
+            visible: data.visible,
         }
     }
 
