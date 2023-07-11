@@ -97,15 +97,6 @@
 /******/ 					"__wbg_getwithrefkey_5e6d9547403deab8": function(p0i32,p1i32) {
 /******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_getwithrefkey_5e6d9547403deab8"](p0i32,p1i32);
 /******/ 					},
-/******/ 					"__wbg_new_abda76e883ba8a5f": function() {
-/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_new_abda76e883ba8a5f"]();
-/******/ 					},
-/******/ 					"__wbg_stack_658279fe44541cf6": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_stack_658279fe44541cf6"](p0i32,p1i32);
-/******/ 					},
-/******/ 					"__wbg_error_f851667af71bcfc6": function(p0i32,p1i32) {
-/******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_error_f851667af71bcfc6"](p0i32,p1i32);
-/******/ 					},
 /******/ 					"__wbg_style_3801009b2339aa94": function(p0i32) {
 /******/ 						return installedModules["../pkg/rpg_bg.js"].exports["__wbg_style_3801009b2339aa94"](p0i32);
 /******/ 					},
@@ -315,7 +306,7 @@
 /******/ 				promises.push(installedWasmModuleData);
 /******/ 			else {
 /******/ 				var importObject = wasmImportObjects[wasmModuleId]();
-/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/rpg_bg.wasm":"12e263f66e2d22c8b848"}[wasmModuleId] + ".module.wasm");
+/******/ 				var req = fetch(__webpack_require__.p + "" + {"../pkg/rpg_bg.wasm":"a8f2ed458572856fc17e"}[wasmModuleId] + ".module.wasm");
 /******/ 				var promise;
 /******/ 				if(importObject instanceof Promise && typeof WebAssembly.compileStreaming === 'function') {
 /******/ 					promise = Promise.all([WebAssembly.compileStreaming(req), importObject]).then(function(items) {
